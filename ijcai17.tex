@@ -1,0 +1,278 @@
+%%%% ijcai17.tex
+
+\typeout{IJCAI-17 Instructions for Authors}
+
+% These are the instructions for authors for IJCAI-17.
+% They are the same as the ones for IJCAI-11 with superficical wording
+%   changes only.
+
+\documentclass{article}
+% The file ijcai17.sty is the style file for IJCAI-17 (same as ijcai07.sty).
+\usepackage{ijcai17}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[outdir=./]{epstopdf}
+\usepackage{footnote}
+\makesavenoteenv{table}
+% Use the postscript times font!
+\usepackage{times}
+
+% the following package is optional:
+%\usepackage{latexsym} 
+
+% Following comment is from ijcai97-submit.tex:
+% The preparation of these files was supported by Schlumberger Palo Alto
+% Research, AT\&T Bell Laboratories, and Morgan Kaufmann Publishers.
+% Shirley Jowell, of Morgan Kaufmann Publishers, and Peter F.
+% Patel-Schneider, of AT\&T Bell Laboratories collaborated on their
+% preparation.
+
+% These instructions can be modified and used in other conferences as long
+% as credit to the authors and supporting agencies is retained, this notice
+% is not changed, and further modification or reuse is not restricted.
+% Neither Shirley Jowell nor Peter F. Patel-Schneider can be listed as
+% contacts for providing assistance without their prior permission.
+
+% To use for other conferences, change references to files and the
+% conference appropriate and use other authors, contacts, publishers, and
+% organizations.
+% Also change the deadline and address for returning papers and the length and
+% page charge instructions.
+% Put where the files are available in the appropriate places.
+
+\title{IJCAI--17 Formatting Instructions}
+\author{Anonymous submission}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Existing event extraction systems are supervised and often learned from expert-annotated datasets, such as ACE and ERE event extraction program. However, constructing these high-quality corpora is costly, and 
+% It requires expert linguists to scan a lot of text before determining the constrained set of event types, and elaborately designing templates about potential attributes and roles for each event. 
+manually annotated dataset are limited in size and coverage of event types, which makes models learned on these datasets hard to generalize. Inspired by some Freebase schemas which share similar structures with ACE event templates, we investigate the following problems in this paper: can we generate a feasible dataset for event extraction with Freebase automatically and is it possible to extract event on this dataset. We first propose four hypotheses based on our observation and produce our dataset accordingly. Then, we design a neural network model with ILP-based post inference committing to handling two challenging problems in event extraction: multi-type events and multi-word arguments. Finally, manual evaluation demonstrates that the data we generated are feasible, and experimental results of both manual and automatic evaluation prove the effectiveness of our proposed model.
+\end{abstract}
+
+\section{Introduction}
+
+\section{Task Description and Dataset}
+\begin{figure}[h]
+	\includegraphics[width=.5\textwidth]{temp}
+	\caption{Examples of CVT instances in Freebase, and labeled sentences in our dataset. \label{fig:3}}
+\end{figure}
+
+\subsection{Knowledge Base}
+
+\subsection{Data Generation}
+We employ Freebase CVT instances to automatically annotate texts in Wikipedia. We regard a sentence as a positive one when it suggests an occurrence of event, or otherwise a negative sentence. The annotation strategy is based on four hypotheses, and we use the following examples to explain and motivate each hypothesis. S1 and S2 are positive sentences and their arguments are in italics and underlined.
+
+\begin{quote}
+	\textbf{S1}: \underline{\emph{Remedy Corp}} was sold to \underline{\emph{BMC Software}} as the \underline{\emph{Service Management Business}} Unit in \underline{\emph{2004}}.
+\end{quote}
+\begin{quote}
+	\textbf{S2}: \underline{\emph{Microsoft}} spent \$6.3 billion buying online display advertising company \underline{\emph{aQuantive}} in \underline{\emph{2007}}.
+\end{quote}
+\begin{quote}
+	\textbf{S3}: Microsoft hopes aQuantive’s Brian McAndrews can outfox Google.
+\end{quote}
+\begin{quote}
+	\textbf{S4}: On April 29th, Elizabeth II and Prince Philip witnessed the marriage of Prince William.
+\end{quote}
+
+\subsubsection{H1: Positive sentences should contain all properties}
+This hypothesis indicates that if a sentence has all properties of a CVT, it is more likely to be a positive sentence. We regard the CVT as event type and extract words and phrases that match the properties of a CVT instance as involved arguments. 
+
+For example, S1 in Figure~\ref{fig:3} contains all properties of instance $m.07bh4j7$ whose type is \emph{business.acquisition}, thus we consider S1 as a positive sentence which expresses an event about \emph{business.acquisition}, and \emph{BMC Software}, \emph{Remedy Corp}, \emph{Serverice Management Business Unit} and \emph{2004} should be labeled as the argument that plays the role of \emph{acquiring\_company}, \emph{company\_acquired}, \emph{divisions\_formed}, \emph{date}, respectively.
+
+However, in practice, we realize that \emph{H1} is too strict that excludes a great many positive sentences like S2 in Figure~\ref{fig:3}. So we put forward the second hypothesis.
+
+\subsubsection{H2: Positive sentences should contain all key properties}
+This hypothesis is an extension of \emph{H1}, which relaxes "all properties" constraint to "key properties". We define the CVT property that has strong relevance with the occurrence of an event as \textbf{key property}. And \textbf{key argument} is the word or phrase that matches a key property of that CVT instance. 
+
+For example, \emph{company\_acquired} and \emph{acquiring\_company} are the key properties of CVT \emph{business.accquisition}, with this relaxation, positive sentences like S2 need not contain all properties, but only key properties instead.
+
+The relevance degree between a CVT $cvt$ and one of its property $pro$ can be measured as follows:
+\begin{equation}
+	score_{cvt, pro} = log \frac{count(cvt, pro)}{count(cvt) \times count(pro)} 
+\end{equation}
+Formula 1 simplifies the calculation of pointwise mutual information, where $count(cvt)$ is the number of all $cvt$ instances, $count(pro)$ is the number of $pro$, and $count(cvt, pro)$ is the number of $cvt$ instances that contain $pro$.
+
+\subsubsection{H3: Key properties should include time property}
+This hypothesis strengthens \emph{H2} by counting time property in key properties. We discover that for many CVTs, their key properties do not take into account time property. However, in fact, ignoring time property will produce a large number of negative sentences like S3. 
+
+This sentence does not express an explicit event about \emph{business.accquisition} while contain all key properties of an instance, resulting in mistaking \emph{Microsoft} for \emph{acquiring\_company}, and \emph{Nokia} for \emph{company\_acquired}. By adding \emph{date} to the set of key properties, S3 will be filtered. Therefore, in \emph{H3}, we choose the property which achieves highest relevance degree among all time properties as a supplementary key property. 
+
+\subsubsection{H4: Positive sentences should contain key properties with close syntactic distance}
+We introduce another factor, syntactic distance, to annotate positive sentences. Intuitively, two arguments take participant in the same event are likely to be close in syntactic structures. This factor is feasible to eliminate negative sentences, such as S4, which satisfies \emph{H2}. 
+
+The syntactic distance can be measured by the distance of two words in dependency parsing tree. We set the maximum distance between two key arguments as 2, denoting that, for a candidate sentence, if a pair of key arguments within it violates this constraint, it is supposed to be negative. Given the dependency parsing tree in  Figure~\ref{fig:2}, S4 is negative because the distance between \emph{Prince Philip} and \emph{marriage} is 3.
+
+\begin{figure}
+	\includegraphics[width=.48\textwidth]{deppath}
+	\caption{An illustration of dependency parse tree of S4. \label{fig:2}}
+\end{figure}
+We conduct a manual evaluation on the quantity and quality of  datasets generated by different hypotheses (see Section~\ref{sec:evalhypo}), and utilize the combinations of hypothesis \emph{H3} and \emph{H4} as the final strategy to data generation.
+
+\section{Model}
+
+\section{Experiments}
+
+\subsection{Experimental Setup}
+\subsubsection{Dataset and Evaluation Methodology}
+We use the November 20th, 2016 English Wikipedia dump, and generate 7180 sentences, containing 7376 events and 25840 arguments as corpus. We then randomly select 6000 sentences for training and 1180 sentences as test set, and the remained 1200 sentences for validation. However, it costs too much time and labor annotating all sentences in the corpus, so we conducted both automatic evaluation and manual evaluation in the experiments. Specifically, we first manually evaluate the reliability of our test set. Next, we regard the noisy rule-generated data as gold standard and evaluate our model automatically. Finally, we manually evaluate a subset of events detected by our model and analysis the difference with results in automatic evaluation.
+
+\subsubsection{Evaluation Measures}
+We evaluated our models in terms of precision (P), recall (R), and F-measure (F) for each subtask. These performance metrics are computed according to the following standards of correctness:
+
+\begin{itemize}
+	\item For event type classification, an event is correctly classified if its reference sentence contains all key arguments of this event type.
+	\item For argument detection, an argument is correctly detected if its offsets, role, and related event type exactly match any reference argument within the same sentence.
+	\item For event detection, an event is correctly detected if its type and all its key arguments match a reference event within the same sentence.
+\end{itemize}
+
+\subsubsection{Training}
+In our experiments, all hyperparameters are tuned by grid search on the development set. In different stages of event extraction, we adopted different parameters. In event detection, we set the size of word embedding to 200, the size of LSTM layer to 100. In argument detection, we use the same size of word embedding, while the size of LSTM layer is 150, and the size of key argument embedding is 50.
+During training, we apply the generic stochastic gradient descent \cite{bottou2010large} with a dropout rate as 0.5 on both the input and output layers to mitigate overfitting. Word embeddings are pretrained using skip-gram word2vec model \cite{mikolov2013distributed} over the whole Wikipedia dump and fine tuned during training. 
+
+\subsection{Generated Dataset Evaluation}\label{sec:evalhypo}
+For comparison, we evaluate four dataset that utilize different hypotheses to generate positive sentences from Wikipedia. We randomly select 100 sentences in each dataset, and annotators are asked to determine whether these sentences express events intuitively. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|c|c|} \hline
+	Hypothesis & H1 & H2 & H2+H4 & H3 & H3+H4 \\ \hline
+	Instances & 0.3M & 3.6M & 3.6M & 1.3M & 1.3M \\ \hline
+	Dataset & 203 & 108K & 12K & 9241 & 7180 \\ \hline
+	Event type & 9 & 24 & 24 & 24 & 24 \\ \hline
+	Correct (\%) & 98 & 22 & 37 & 81 & 89 \\ \hline
+\end{tabular}
+\caption{Statistic of generated dataset with different hypotheses. Instances and Dataset denotes the number of instances and sentences that satisfy each hypothesis, respectively. Event type indicates the number of different CVT types in each dataset. Correct represents the percentage of sentences which account as stating events explicitly. \label{tab:3}}
+\end{table}
+
+As shown in Table~\ref{tab:3}, as the strictest hypothesis, H1 guarantees the quality and confidence of generated data, while there are merely 30K CVT instances that contains all properties of their corresponding CVT types. And by utilizing these instances, we can only obtain 203 sentences which cover 11 types of events, which is quite insufficient for further training. H2 is looser than H1, though it expands the resulting dataset, it produce a large number of incorrect sentences. This side effect  demonstrates that H2 is inappropriate to be used as a soft constraint. Compared with H2, the significant improvement in the quality of sentences generated by H3 proves that CVT properties referring time information are critical to data generation. Among all hypotheses，finally, data obtained by H4 achieves highest precision, which demonstrates that our hypothesis H4 is feasible and it is an effective way to generate reliable data automatically.
+
+\subsection{Baselines}
+To investigate the effectiveness of our proposed model, we develop three baseline extraction systems for comparison, including traditional feature-based methods and neural network models. 
+
+For neural network method, we train a long short-term memory network that takes word embeddings as the input, and simply learns a probability distribution over all possible labels.
+
+For feature-based methods, we apply Conditional Random Field \cite{lafferty2001conditional} and Maximum Entropy \cite{berger1996maximum} to explore a variety of elaborately features which are widely used in traditional ACE event extraction. And both two classifiers share the same feature sets.
+\subsubsection{Lexical Features}
+\begin{enumerate}
+	\item Unigrams and bigrams of the current word and its context within a window of size 2.
+	\item Unigrams and bigrams of part-of-speech tags of the current word and its context within a window of size 2.
+	\item Unigrams and bigrams of lemmas of the current word and its context within a window of size 2.
+	\item Synonym set entries in WordNet \cite{miller1995wordnet} of the current token.
+\end{enumerate}
+
+\subsubsection{Syntactic Features}
+\begin{enumerate}
+	\item The depth of the current words in the parse tree.
+	\item Dependent and governor words of the current token.
+	\item The path from root to leaf node of the words in the parse tree.
+\end{enumerate}
+
+\subsubsection{Entity Information}
+\begin{enumerate}
+	\item Unigrams and bigrams of named entity mention of the current word and its context words and its context within a window of size 2.
+	\item Relative distance and entity type of the nearest entity to the current token in the parse tree.
+	\item Relative distance and entity type of the nearest entity to the current token in the sentence.
+\end{enumerate}
+
+We derive these features using Stanford CoreNLP \cite{manning2014stanford}, and apply the implementation from the CRF++ toolkit \cite{kudo2005crf++} and Le Zhang \footnote{https://github.com/lzhang10/maxent} to train CRF and max entropy classifiers, respectively.
+
+\subsection{Automatic Evaluations}
+Table~\ref{tab:1} presents the overall performance of all methods on the full test set. 
+
+\begin{table*}[!t]
+\centering
+\begin{tabular}{|l|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|} \hline
+	\multirow{2}{*}{Model} & \multicolumn{3}{c|}{Event Classification} & \multicolumn{3}{c|}{Argument Detection} & 
+	\multicolumn{3}{c|}{Event Detection} \\ \cline{2-10}
+	 & P & R & F & P & R & F & P & R & F \\ \hline
+	CRF & 96.8 & 9.93 & 18.0 & 64.8 & 6.54 & 11.9 & 29.8 & 3.06 & 5.55 \\ \hline
+	MaxEnt & \textbf{97.9} & 11.4 & 20.3 & 64.5 & 7.28 & 13.1 & 29.3 & 3.40 & 6.08 \\ \hline
+	LSTM & 97.2 & 62.4 & 75.1 & 77.1 & 53.9 & 63.5 & 51.0 & 32.8 & 39.9  \\ \hline \hline
+	LSTM-CRF & 97.3 & 67.2 & 79.5 & \textbf{78.0} & 60.2 & 68.0  & \textbf{54.4} & 37.6 & 44.4  \\ \hline
+	LSTM-CRF-ILP$_{1}$ & 93.4 & 81.4 & 86.9 & 74.1 & 71.1 & 72.6  & 49.6 & 43.3 & 46.2 \\ \hline
+	LSTM-CRF-ILP$_{multi}$ & 93.2 & \textbf{81.9} & \textbf{87.2} &  74.0 & \textbf{71.5} & \textbf{72.7} & 49.5 & \textbf{43.5} & \textbf{46.3} \\ \hline
+\end{tabular}
+\caption{Overall system performance of automatic evaluations. (\%) \label{tab:1}}
+\end{table*}
+
+\subsubsection{Comparison with baselines}Traditional feature-based models are inefficient in both event detection and argument detection. Although they can achieve high precisions in event classification and argument detection, they can only extract a limited number of events, resulting in low recalls. Neural-network-based methods performs much better than feature-based models, because they can make better use of word semantic features, especially, LSTM can capture longer range dependencies and richer contextual information instead of neighborly word features. Moreover, neural-network-based methods can avoid errors propagating from other NLP preprocessing tools like POS tagging and NER.
+
+\subsubsection{Effect of CRF Layer}
+Every model which has a CRF layer over its neural network output layer is superior to the one with a simple LSTM layer. Compared with LSTM model, LSTM-CRF achieves higher precisions and recalls in all subtasks by significantly reducing the invalid labeling sequences (e.g., \texttt{I-arg} appears right after \texttt{O}). During prediction, LSTM-CRF models take into account the constraints between neighbor labels, and co-occurrence relationships between key arguments, rather than tagging each token independently. 
+\subsubsection{Effect of Post Inference}
+As shown in Table~\ref{tab:1}, post inference with ILP considerately improve the overall system performance, especially in event classification. ILP treat our hypothesis about key argument as a constraint for global inference based on the output score of neural network models, and produces a gain of 7.4 in event classification, 1.8 in event detection, and 4.6 in argument detection, with respect to the F1 score.
+
+We further investigate the effect of our heuristic method, LSTM-CRF-ILP$_{multi}$, to deal with the multi-event sentence issue. Compared with other models, LSTM-CRF-ILP$_{multi}$ selects several labeling sequences according to their objective value, and extract a number of events with comparable confidences from a sentence. As we can see from Table~\ref{tab:1}, this strategy may detect multiple events for a sentence, contributing to the increase of recalls, and F1 scores at the spent of a little drop of precisions. 
+\subsection{Manual Evaluations}
+\subsubsection{Manual Annotations}
+We randomly sample 150 unlabeled sentences from test data set. Annotators are asked to fully annotate the events and arguments to each sentence following steps below: 
+
+\begin{enumerate}
+	\item First, determine whether a given sentence is positive or negative, in other words, whether there are events in the sentence or not.
+	\item Second, assign event types to the positive sentences identified in first step.
+	\item Finally, label all related arguments and their roles according to the types of events in the positive sentences.
+\end{enumerate}
+
+To make the annotation more credible, each sentence is independently annotated by two annotators, and the inter-annotator agreement is \% for event types and \% for arguments.
+
+\subsubsection{Results}
+Table~\ref{tab:2} presents the average results of manual evaluations where we measure precision, recall and F1 by the same standards of correctness as automatic evaluation.  
+
+\begin{table*}[t]
+\centering
+\begin{tabular}{|l|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|} \hline
+% \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|} \hline
+	\multirow{2}{*}{Model} & \multicolumn{3}{c|}{Event Classification} & \multicolumn{3}{c|}{Argument Detection} & 
+	\multicolumn{3}{c|}{Event Detection} \\ \cline{2-10}
+	 & P & R & F & P & R & F & P & R & F \\ \hline
+	CRF & 88.9 & 12.0 & 21.2 & 56.7 & 7.56 & 13.3 & 22.2 & 3.0 & 5.3 \\ \hline
+	MaxEnt & \textbf{92.9} & 9.78 & 17.7 & 61.7 & 6.44 & 11.7 & 28.6 & 3.01 & 5.44 \\ \hline
+	LSTM & 91.3 & 71.4 & 80.2 & 70.9 & 60.2 & 65.1 & 48.1 & 37.6 & 42.2 \\ \hline \hline
+	LSTM-CRF & 89.3 & 75.2 & 81.6 & \textbf{72.8} & 64.9 & 68.6 & \textbf{48.2} & 40.1 & 44.1  \\ \hline
+	LSTM-CRF-ILP$_{1}$ & 85.1 & \textbf{85.7} & 85.4 & 67.6 & 72.9 & 70.2 & 44.0 & 44.4 & 44.2 \\ \hline
+	LSTM-CRF-ILP$_{multi}$ & 85.6 & 86.5 & \textbf{85.5} & 67.4 & \textbf{73.6} & \textbf{70.4} & 44.1 & \textbf{45.1} & \textbf{44.6} \\ \hline
+\end{tabular}
+\caption{Average of overall system performance of manual evaluations. (\%) \label{tab:2}}
+\end{table*}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.45\textwidth]{example.eps}
+	\caption{Example outputs of LSTM-CRF-ILP$_{multi}$.\label{fig:1}}
+\end{figure}
+
+We can draw similar conclusions about the comparison of performances between different models as automatic evaluation. We demonstrate that LSTM-CRF-ILP$_{multi}$ is the most effective model in event extraction as it attains the highest F1 score in both manual and automatic evaluation.
+
+Moreover, manual evaluation helps us to gain a deep insight of our generated data and proposed models. We further conduct automatic evaluation on this manual annotated dataset and list the top 5 event types whose F1 scores of LSTM-CRF-ILP$_{multi}$ differ greatly from automatic evaluation in Table~\ref{tab:4}. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|} \hline
+	Event type & P & R & F \\ \hline
+	olympics.medal\_honor \footnote{The full name is olympics.olympic\_medal\_honor in Freebase.} & $\downarrow$ 25.0\% & $\downarrow$ 5.0\% & $\downarrow$ 13.8\% \\ \hline
+	film.performance & $\downarrow$ 21.4\% & $\uparrow$ 3.1\% & $\downarrow$10.3\% \\ \hline
+	business.acquisition & $\rightarrow$ & $\downarrow$ 7.1\% & $\downarrow$ 5.4\% \\ \hline
+	tv.appearance \footnote{The full name is tv.regular\_tv\_appearance in Freebase.} & $\downarrow$ 9.5\% & $\uparrow$ 3.0\% & $\downarrow$ 3.1\% \\ \hline
+	film.release \footnote{The full name is film.film\_regional\_release\_date in Freebase.} & $\downarrow$ 7.7\% & $\uparrow$ 5.6\% & $\downarrow$ 0.55\% \\ \hline
+\end{tabular}
+\caption{Top 5 event types whose performances on event classification differ most from automatic evaluation. The model we evaluated is LSTM-CRF-ILP$_{multi}$ \label{tab:4}}
+\end{table}
+
+Most of the performance differences blame on the stage of data generation. Figure~\ref{fig:1} examples two types of errors in data generation. Some of the sentences automatic generated test set are noisy, in other words, they do not express any event while still match all key properties of certain instances. Take S5 as an example, though the phrases \emph{the car} matches a film name, it does not indicate this film, and there is no explicit evidence expressing that an actor starring in a film. This is a bottleneck of our data generation strategy. During manual evaluation, we find 16 negative sentences and all of them are mistakenly labeled due to the same reason. Unfortunately, our model fails to identify some of these negative sentences.
+
+Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances that not referenced in Freebase. There are two events mentioned in S6, while the arguments of the second event do not match any CVT instances in Freebase, leading to an omitting event in data generation. This phenomenon suggests that learning from distant supervision provided by Freebase, our model can help complete and update properties of Freebase instances in return.
+\section*{Acknowledgments}
+
+%% The file named.bst is a bibliography style file for BibTeX 0.99c
+\bibliographystyle{named}
+\bibliography{ijcai17}
+
+\end{document}
+

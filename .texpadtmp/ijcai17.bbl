@@ -1,0 +1,48 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Berger \bgroup \em et al.\egroup
+  }{1996}]{berger1996maximum}
+Adam~L Berger, Vincent J~Della Pietra, and Stephen A~Della Pietra.
+\newblock A maximum entropy approach to natural language processing.
+\newblock {\em Computational linguistics}, 22(1):39--71, 1996.
+
+\bibitem[\protect\citeauthoryear{Bottou}{2010}]{bottou2010large}
+L{\'e}on Bottou.
+\newblock Large-scale machine learning with stochastic gradient descent.
+\newblock In {\em Proceedings of COMPSTAT'2010}, pages 177--186. Springer,
+  2010.
+
+\bibitem[\protect\citeauthoryear{Kudo}{2005}]{kudo2005crf++}
+Taku Kudo.
+\newblock Crf++: Yet another crf toolkit.
+\newblock {\em Software available at http://crfpp. sourceforge. net}, 2005.
+
+\bibitem[\protect\citeauthoryear{Lafferty \bgroup \em et al.\egroup
+  }{2001}]{lafferty2001conditional}
+John Lafferty, Andrew McCallum, and Fernando Pereira.
+\newblock Conditional random fields: Probabilistic models for segmenting and
+  labeling sequence data.
+\newblock In {\em Proceedings of the eighteenth international conference on
+  machine learning, ICML}, volume~1, pages 282--289, 2001.
+
+\bibitem[\protect\citeauthoryear{Manning \bgroup \em et al.\egroup
+  }{2014}]{manning2014stanford}
+Christopher~D Manning, Mihai Surdeanu, John Bauer, Jenny~Rose Finkel, Steven
+  Bethard, and David McClosky.
+\newblock The stanford corenlp natural language processing toolkit.
+\newblock In {\em ACL (System Demonstrations)}, pages 55--60, 2014.
+
+\bibitem[\protect\citeauthoryear{Mikolov \bgroup \em et al.\egroup
+  }{2013}]{mikolov2013distributed}
+Tomas Mikolov, Ilya Sutskever, Kai Chen, Greg~S Corrado, and Jeff Dean.
+\newblock Distributed representations of words and phrases and their
+  compositionality.
+\newblock In {\em Advances in neural information processing systems}, pages
+  3111--3119, 2013.
+
+\bibitem[\protect\citeauthoryear{Miller}{1995}]{miller1995wordnet}
+George~A Miller.
+\newblock Wordnet: a lexical database for english.
+\newblock {\em Communications of the ACM}, 38(11):39--41, 1995.
+
+\end{thebibliography}
