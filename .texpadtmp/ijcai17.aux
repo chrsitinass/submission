@@ -1,58 +1,93 @@
 \relax 
+\citation{mintz2009distant}
+\citation{mintz2009distant}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Task Description and Dataset}{1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Knowledge Base}{1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Data Generation}{1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Examples of CVT instances in Freebase, and labeled sentences in our dataset. }}{1}}
-\newlabel{fig:3}{{1}{1}}
-\@writefile{toc}{\contentsline {subparagraph}{H1: Positive sentences should contain all properties}{1}}
-\@writefile{toc}{\contentsline {subparagraph}{H2: Positive sentences should contain all key properties}{1}}
+\citation{li2013joint}
+\citation{chen2015event}
+\citation{huang2015bidirectional}
+\citation{lample2016neural}
+\citation{bollacker2008freebase}
+\citation{berant2013semantic}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Dataset}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Examples of CVT instances in Freebase, and labeled sentences in our dataset. \emph  {Company\_acuqired}, \emph  {acquiring\_company} and \emph  {date} are key arguments in \emph  {business.acquisition}. }}{2}}
+\newlabel{fig:3}{{1}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Freebase}{2}}
+\newlabel{datagen}{{2.2}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Data Generation}{2}}
+\@writefile{toc}{\contentsline {subparagraph}{H1: Positive sentences should contain all properties}{2}}
+\@writefile{toc}{\contentsline {subparagraph}{H2: Positive sentences should contain all key properties}{2}}
+\citation{hochreiter1997long}
+\citation{collobert2011natural}
+\citation{huang2015bidirectional}
+\citation{lample2016neural}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces An illustration of dependency parse tree of S4. }}{3}}
+\newlabel{fig:2}{{2}{3}}
+\@writefile{toc}{\contentsline {subparagraph}{H3: Key properties should include time property}{3}}
+\@writefile{toc}{\contentsline {subparagraph}{H4: Positive sentences should contain key properties with close syntactic distance}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Model}{3}}
+\newlabel{evede}{{3.1}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Event Detection }{3}}
+\@writefile{toc}{\contentsline {subparagraph}{Tagging scheme}{3}}
+\@writefile{toc}{\contentsline {subparagraph}{LSTM}{3}}
+\@writefile{toc}{\contentsline {subparagraph}{CRF}{3}}
+\citation{rabiner1989tutorial}
+\citation{gurobi}
 \citation{bottou2010large}
 \citation{mikolov2013distributed}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces An illustration of dependency parse tree of S4. }}{2}}
-\newlabel{fig:2}{{2}{2}}
-\@writefile{toc}{\contentsline {subparagraph}{H3: Key properties should include time property}{2}}
-\@writefile{toc}{\contentsline {subparagraph}{H4: Positive sentences should contain key properties with close syntactic distance}{2}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Model}{2}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Experiments}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Experimental Setup}{2}}
-\@writefile{toc}{\contentsline {subparagraph}{Dataset and Evaluation Methodology}{2}}
-\@writefile{toc}{\contentsline {subparagraph}{Evaluation Measures}{2}}
-\@writefile{toc}{\contentsline {subparagraph}{Training}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Generated Dataset Evaluation}{2}}
-\newlabel{sec:evalhypo}{{4.2}{2}}
+\@writefile{toc}{\contentsline {subparagraph}{ILP-based Post Inference}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Argument Detection}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experiments}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Experimental Setup}{4}}
+\@writefile{toc}{\contentsline {subparagraph}{Dataset and Evaluation Methodology}{4}}
+\@writefile{toc}{\contentsline {subparagraph}{Evaluation Measures}{4}}
+\@writefile{toc}{\contentsline {subparagraph}{Training}{4}}
 \citation{lafferty2001conditional}
 \citation{berger1996maximum}
 \citation{miller1995wordnet}
 \citation{manning2014stanford}
 \citation{kudo2005crf++}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Statistic of generated dataset with different hypotheses. Instances and Dataset denotes the number of instances and sentences that satisfy each hypothesis, respectively. Event type indicates the number of different CVT types in each dataset. Correct represents the percentage of sentences which account as stating events explicitly. }}{3}}
-\newlabel{tab:3}{{1}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Baselines}{3}}
-\@writefile{toc}{\contentsline {subparagraph}{Lexical Features}{3}}
-\@writefile{toc}{\contentsline {subparagraph}{Syntactic Features}{3}}
-\@writefile{toc}{\contentsline {subparagraph}{Entity Information}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Automatic Evaluations}{3}}
-\@writefile{toc}{\contentsline {subparagraph}{Comparison with baselines}{3}}
-\@writefile{toc}{\contentsline {subparagraph}{Effect of CRF Layer}{3}}
-\@writefile{toc}{\contentsline {subparagraph}{Effect of Post Inference}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Generated Dataset Evaluation}{5}}
+\newlabel{sec:evalhypo}{{4.2}{5}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Statistic of generated dataset with different hypotheses. Instances and Dataset denotes the number of instances and sentences that satisfy each hypothesis, respectively. Event type indicates the number of different CVT types in each dataset. Correct represents the percentage of sentences which account as stating events explicitly. }}{5}}
+\newlabel{tab:3}{{1}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Baselines}{5}}
+\@writefile{toc}{\contentsline {subparagraph}{Lexical Features}{5}}
+\@writefile{toc}{\contentsline {subparagraph}{Syntactic Features}{5}}
+\@writefile{toc}{\contentsline {subparagraph}{Entity Information}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Automatic Evaluations}{5}}
+\@writefile{toc}{\contentsline {subparagraph}{Comparison with baselines}{5}}
+\@writefile{toc}{\contentsline {subparagraph}{Effect of CRF Layer}{5}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Overall system performance of automatic evaluations. (\%) }}{6}}
+\newlabel{tab:1}{{2}{6}}
+\@writefile{toc}{\contentsline {subparagraph}{Effect of Post Inference}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Manual Evaluations}{6}}
+\@writefile{toc}{\contentsline {subparagraph}{Manual Annotations}{6}}
+\@writefile{toc}{\contentsline {subparagraph}{Results}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Example outputs of LSTM-CRF-ILP$_{multi}$.}}{6}}
+\newlabel{fig:1}{{3}{6}}
 \bibstyle{named}
 \bibdata{ijcai17}
+\bibcite{berant2013semantic}{\citeauthoryear {Berant \bgroup \em  et al.\egroup }{2013}}
 \bibcite{berger1996maximum}{\citeauthoryear {Berger \bgroup \em  et al.\egroup }{1996}}
+\bibcite{bollacker2008freebase}{\citeauthoryear {Bollacker \bgroup \em  et al.\egroup }{2008}}
 \bibcite{bottou2010large}{\citeauthoryear {Bottou}{2010}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Overall system performance of automatic evaluations. (\%) }}{4}}
-\newlabel{tab:1}{{2}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Manual Evaluations}{4}}
-\@writefile{toc}{\contentsline {subparagraph}{Manual Annotations}{4}}
-\@writefile{toc}{\contentsline {subparagraph}{Results}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Example outputs of LSTM-CRF-ILP$_{multi}$.}}{4}}
-\newlabel{fig:1}{{3}{4}}
+\bibcite{chen2015event}{\citeauthoryear {Chen \bgroup \em  et al.\egroup }{2015}}
+\bibcite{collobert2011natural}{\citeauthoryear {Collobert \bgroup \em  et al.\egroup }{2011}}
+\bibcite{gurobi}{\citeauthoryear {Gurobi\nobreakspace  {}Optimization}{2016}}
+\bibcite{hochreiter1997long}{\citeauthoryear {Hochreiter and Schmidhuber}{1997}}
+\bibcite{huang2015bidirectional}{\citeauthoryear {Huang \bgroup \em  et al.\egroup }{2015}}
 \bibcite{kudo2005crf++}{\citeauthoryear {Kudo}{2005}}
 \bibcite{lafferty2001conditional}{\citeauthoryear {Lafferty \bgroup \em  et al.\egroup }{2001}}
+\bibcite{lample2016neural}{\citeauthoryear {Lample \bgroup \em  et al.\egroup }{2016}}
+\bibcite{li2013joint}{\citeauthoryear {Li \bgroup \em  et al.\egroup }{2013}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Average of overall system performance of manual evaluations. (\%) }}{7}}
+\newlabel{tab:2}{{3}{7}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Top 5 event types whose performances on event classification differ most from automatic evaluation. The model we evaluated is LSTM-CRF-ILP$_{multi}$ }}{7}}
+\newlabel{tab:4}{{4}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Related Work}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusions and Future Work}{7}}
 \bibcite{manning2014stanford}{\citeauthoryear {Manning \bgroup \em  et al.\egroup }{2014}}
 \bibcite{mikolov2013distributed}{\citeauthoryear {Mikolov \bgroup \em  et al.\egroup }{2013}}
 \bibcite{miller1995wordnet}{\citeauthoryear {Miller}{1995}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Average of overall system performance of manual evaluations. (\%) }}{5}}
-\newlabel{tab:2}{{3}{5}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Top 5 event types whose performances on event classification differ most from automatic evaluation. The model we evaluated is LSTM-CRF-ILP$_{multi}$ }}{5}}
-\newlabel{tab:4}{{4}{5}}
+\bibcite{mintz2009distant}{\citeauthoryear {Mintz \bgroup \em  et al.\egroup }{2009}}
+\bibcite{rabiner1989tutorial}{\citeauthoryear {Rabiner}{1989}}
