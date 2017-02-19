@@ -55,7 +55,7 @@ Existing event extraction systems are supervised and often learned from expert-a
 \end{abstract}
 
 \section{Introduction}
-Automatically extracting events from natural text remains a challenging task in information extraction. Among diverse types of event extraction systems, the event extraction task proposed by Automatic Content Extraction (ACE) program is the most popular corpus for testing new event extraction algorithm. The ACE program defines the following terminology for event extraction:
+Automatically extracting events from natural text remains a challenging task in information extraction. Among diverse types of event extraction systems, the event extraction task proposed by Automatic Content Extraction (ACE) \cite{doddington2004automatic} program is the most popular corpus for testing new event extraction algorithm. The ACE program defines the following terminology for event extraction:
 \begin{itemize}	\item \emph{Trigger}: the word that most clearly expresses the occurrence of an event.	\item \emph{Argument}: a named entity that serves as a participant or attribute with a specific role in an event.
 \end{itemize}
 
@@ -69,11 +69,6 @@ To achieve the second goal, unlike previous ACE event extraction systems \cite{l
 
 The rest of the paper is organized as follows. Section 2 presents our data generation methods, and Section 3 introduces our models of extracting events. Section 4 provides the experimental results and analyses. Section 5 discusses related work. Section 6 concludes this paper.
 \section{Dataset}
-\begin{figure}[h]
-	\includegraphics[width=.5\textwidth]{temp}
-	\caption{Examples of CVT instances in Freebase, and labeled sentences in our dataset. \emph{Company\_acuqired}, \emph{acquiring\_company} and \emph{date} are key arguments in \emph{business.acquisition}. \label{fig:3}}
-\end{figure}
-
 \subsection{Freebase}
 Freebase\cite{bollacker2008freebase} is a collaborative knowledge base where data is harvested from existing structured sources like individual, user-submitted wiki contributions.
 
@@ -83,8 +78,14 @@ Freebase can be divided into three layers: \emph{domain}, \emph{type} and \emph{
 
 We use the Freebase version of Berant et al. \shortcite{berant2013semantic}, containing 1010 CVTs. After filtering out CVTs that describe the structures of the Freebase or are irrelevant to event extraction (e.g., \emph{food.recipe\_ingredient}), we select 24 types of CVTs with around 280 million instances.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.48\textwidth]{temp}
+	\caption{Examples of CVT instances in Freebase, and labeled sentences in our dataset. \emph{Company\_acuqired}, \emph{acquiring\_company} and \emph{date} are key arguments in \emph{business.acquisition}. \label{fig:3}}
+\end{figure}
+
 \subsection{Data Generation\label{datagen}}
-We employ Freebase CVT instances to automatically annotate texts in Wikipedia. We regard a sentence as a positive one when it suggests an occurrence of event, or otherwise a negative sentence. The annotation strategy is based on four hypotheses, and we use the following examples to explain and motivate each hypothesis. S1 and S2 are positive sentences and their arguments are in italics and underlined.
+We employ Freebase CVT instances to automatically annotate texts in Wikipedia. We regard a sentence as a positive one when it suggests an occurrence of event, or otherwise a negative sentence. The annotation strategy is based on four hypotheses, and we use the following examples to explain and motivate each hypothesis. S1 and S2 are positive sentences and their arguments are in italics and underlined. The event structures of S1 and S2 are illustrated in Figure~\ref{fig:3}.
 
 \begin{quote}
 	\textbf{S1}: \underline{\emph{Remedy Corp}} was sold to \underline{\emph{BMC Software}} as the \underline{\emph{Service Management Business}} Unit in \underline{\emph{2004}}.
@@ -102,9 +103,9 @@ We employ Freebase CVT instances to automatically annotate texts in Wikipedia. W
 \subsubsection{H1: Positive sentences should contain all properties}
 This hypothesis indicates that if a sentence has all properties of a CVT, it is more likely to be a positive sentence. We regard the CVT as event type and extract words and phrases that match the properties of a CVT instance as involved arguments. 
 
-For example, S1 in Figure~\ref{fig:3} contains all properties of instance $m.07bh4j7$ whose type is \emph{business.acquisition}, thus we consider S1 as a positive sentence which implies an event about \emph{business.acquisition}, and \emph{BMC Software}, \emph{Remedy Corp}, \emph{Service Management Business Unit} and \emph{2004} should be labeled as the argument that plays the role of \emph{acquiring\_company}, \emph{company\_acquired}, \emph{divisions\_formed}, \emph{date}, respectively.
+For example, S1 contains all properties of instance $m.07bh4j7$ whose type is \emph{business.acquisition}, thus we consider S1 as a positive sentence which implies an event about \emph{business.acquisition}, and \emph{BMC Software}, \emph{Remedy Corp}, \emph{Service Management Business Unit} and \emph{2004} should be labeled as the argument that plays the role of \emph{acquiring\_company}, \emph{company\_acquired}, \emph{divisions\_formed}, \emph{date}, respectively.
 
-However, in practice, we realize that \emph{H1} is too strict that excludes a great many positive sentences like S2 in Figure~\ref{fig:3}. So we put forward the second hypothesis.
+However, in practice, we realize that \emph{H1} is too strict that excludes a great many positive sentences like S2. So we put forward the second hypothesis.
 
 \subsubsection{H2: Positive sentences should contain all key properties}
 This hypothesis is an extension of \emph{H1}, which relaxes "all properties" constraint to "key properties". We define the CVT property that has strong relevance with the occurrence of an event as \textbf{key property}. And \textbf{key argument} is the word or phrase that matches a key property of that CVT instance. 
@@ -354,6 +355,15 @@ Most of the performance differences blame on the stage of data generation. Figur
 Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances that not referenced in Freebase. There are two events mentioned in S6, while the arguments of the second event do not match any CVT instances in Freebase, leading to an omitting event in data generation. This phenomenon suggests that learning from distant supervision provided by Freebase, our model can help complete and update properties of Freebase instances in return.
 
 \section{Related Work}
+Event extraction is one of the fundamental research topics in information extraction and natural language understanding. There are diverse descriptions of event extraction tasks defined by different programs (MUC \cite{grishman1996message}, ACE \cite{doddington2004automatic}, ERE \cite{song2015light} and TACKBP \cite{mitamura2015event}), all of which can be summarized as template-filling-based event extraction. Nearly all approaches on these corpora use a supervised paradigm, and highly rely on the human-annotated data. We typically divide them into feature-based methods and neural-network-based methods. 
+
+Feature-based methods usually rely on a variety of elaborately features. They aim to exploit different feature extraction strategies and evaluate feature contributions to the classification. Ahn \shortcite{ahn2006stages} formulate event extraction as a pipeline of four classification tasks and utilizes lexical features (e.g., full word), syntactic features (e.g., dependency features), and external-knowledge features (e.g., WordNet). Later studies intend to capture different levels of features. Ji and Grishman \shortcite{ji2008refining} combine global evidence from a cluster of related documents. Gupta and Ji \shortcite{gupta2009predicting} employ cross-event features, while Hong et al. \shortcite{hong2011using} leverage cross-entity inference to event extraction. Li et al. \shortcite{li2013joint} jointly learn trigger labeling and argument labeling using structured perceptron to capture both local and global features of triggers and arguments. 
+
+Neural-network-based methods are free of hard feature engineering and error propagation from external NLP tools. Two types of neural works have been employed. Chen et al. \shortcite{chen2015event} propose a convolutional neural network (CNN) with a dynamic multi-pooling layer to capture sentence-level features better. Nguyen et al. \shortcite{nguyen2016joint} propose a bidirectional RNN with various memory matrices to jointly learn triggers and arguments, which benefits from both joint models and neural network models. However, to our knowledge, LSTM-CRF models have not been applied in earlier studies.
+
+In contrast to these prior systems focused on small human-labeled corpus, Huang et al. \shortcite{huang2016liberal} propose a novel Liberal Event Extraction paradigm which automatically discovers event schemas and extract events simultaneously from any unlabeled corpus. 
+
+Freebase is a typical resource for distant supervision in binary relation extraction \cite{mintz2009distant,zeng2015distant}. However, we can not simply apply their data labeling strategies to event extraction, as event structures is much more like a n-ary relation extraction.
 
 \section{Conclusions and Future Work}
 Motivated by the data labeling problem in ACE event extraction system, we explore a method to generate training data automatically based on four hypotheses between arguments and events. The manual evaluation result demonstrates that our hypotheses are feasible, and the produced dataset is clean and high-quality.
