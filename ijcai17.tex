@@ -61,7 +61,7 @@
 
 \section{Experiments}
 \subsection{Experimental Setup}
-\textbf{Dataset and Evaluation Methodology}. We use the November 20th, 2016 English Wikipedia dump, and generate 7180 sentences, containing 7376 events and 25840 arguments as corpus. We then randomly select 4800 sentences for training and 1180 sentences as test set, and the remained 1200 sentences for validation. We conducted both automatic evaluation and manual evaluation in the experiments. We first manually evaluate the quality of our test set. Next, we regard the noisy rule-generated data as gold standard and evaluate our model automatically. Finally, we manually evaluate a subset of events detected by our model and analysis the difference with results in automatic evaluation.
+\textbf{Dataset and Evaluation Methodology}. We use the November 20th, 2016 English Wikipedia dump, and generate 7180 sentences, containing 7376 events and 25840 arguments as dataset. We then randomly select 4800 sentences for training and 1180 sentences as test set, and the rest 1200 sentences for validation. We conduct both automatic evaluation and manual evaluation in the experiments. We first manually evaluate the quality of our test set. Next, we regard the noisy generated data as gold standard and evaluate our model automatically. Finally, we manually evaluate a subset of events detected by our model and analysis the difference with results in automatic evaluation.
 
 \noindent \textbf{Evaluation Measures}. We evaluated our models in terms of precision (P), recall (R), and F-measure (F) for each subtask. These performance metrics are computed according to the following standards of correctness: For event type classification, an event is correctly classified if its reference sentence contains all key arguments of this event type; For argument detection, an argument is correctly detected if its offsets, role, and related event type exactly match any reference argument within the same sentence; For event detection, an event is correctly detected if its type and all its key arguments match a reference event within the same sentence.
 
@@ -111,8 +111,10 @@ As we can summarize from Table~\ref{tab:1}, traditional feature-based models are
 \caption{Overall system performance of automatic evaluations. (\%) \label{tab:1}}
 \end{table*}
 
+\vspace{1em}
 \noindent \textbf{Effect of CRF Layer}. Every model which has a CRF layer over its LSTM output layer is superior to the one with a simple LSTM layer. Compared with LSTM model, LSTM-CRF achieves higher precisions and recalls in all subtasks by significantly reducing the invalid labeling sequences (e.g., \texttt{I-arg} appears right after \texttt{O}). During prediction, instead of tagging each token independently, LSTM-CRF takes into account the constraints between neighbor labels, and increases the cooccurrences of key arguments with regard to the same event type in some way.
 
+\vspace{1em}
 \noindent \textbf{Effect of Post Inference}. As shown in Table~\ref{tab:1}, post inference based on ILP considerably improve the overall system performance, especially in event classification. With the help of constraint \textbf{C4},  some dubious key arguments can be inferred through other key arguments from their contexts. Compared with LSTM-CRF, LSTM-CRF-ILP$_1$ produces a gain of 7.4 in event classification, 1.8 in event detection, and 4.6 in argument detection, with respect to the F1. We further investigate the effect of our heuristic method, LSTM-CRF-ILP$_{multi}$ which deals with the multi-event sentence issue. Compared with other models, LSTM-CRF-ILP$_{multi}$ selects several labeling sequences according to their objective value, and extract a number of events with comparable confidences from a sentence. As we can see from Table~\ref{tab:1}, this strategy may detect multi-type events for a sentence, contributing to the increase of recalls, and F1 scores with a little drop of precisions. 
 \subsection{Manual Evaluations}
 We randomly sample 150 unlabeled sentences from test data set. Annotators are asked to annotate the events and arguments to each sentence following two steps. First, determine whether a given sentence is positive or negative, and assign event types to positive sentences. Next, label all related arguments and their roles according to the types of events in the positive sentences. Each sentence is independently annotated by two annotators, and the inter-annotator agreement is 87\% for event types and 79\% for arguments.
@@ -131,7 +133,7 @@ Table~\ref{tab:2} presents the average F1 score of manual evaluations. We can dr
 	LSTM-CRF-ILP$_{1}$ & 85.4 & 70.2 & 44.2 \\ \hline
 	LSTM-CRF-ILP$_{multi}$ & \textbf{85.5} & \textbf{70.4} & \textbf{44.6} \\ \hline
 \end{tabular}
-\caption{Average F1 scores of overall system performance of manual evaluations. (\%) \label{tab:2}}
+\caption{Average F1 scores of overall system performance of manual evaluations. (\%) EC, AD, ED denote the event classification, argument detection and event detection, respectively. \label{tab:2}}
 \end{table}
 
 \begin{figure}[h]
@@ -142,36 +144,34 @@ Table~\ref{tab:2} presents the average F1 score of manual evaluations. We can dr
 
 Moreover, manual evaluation helps us to gain a deep insight of our data and models. We further conduct automatic evaluation on the manual annotated dataset and list the top 5 event types whose F1 scores of LSTM-CRF-ILP$_{multi}$ differ greatly from automatic evaluation in Table~\ref{tab:4}. 
 
+Most of the performance differences are caused by the stage of data generation. Figure~\ref{fig:1} examples two types of errors in data generation. Some of the sentences automatic generated test set are noisy, in other words, they do not imply any event while still match all key properties of certain instances. Take S5 as an example, though the phrases \emph{the car} matches a film name, it does not indicate this film, and there is no explicit evidence expressing that an actor starring in a film. This is a bottleneck of our data generation strategy. During manual evaluation, we find 16 negative sentences which are mistakenly labeled due to this reason. Unfortunately, our model fails to rectify 10 of them.
+
+Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances that not referenced in Freebase. There are two events mentioned in S6, while the arguments of the second event do not match any CVT instances in Freebase, leading to an omitting event in data generation. This phenomenon suggests that learning from distant supervision provided by Freebase, our model can help complete and update properties of Freebase instances in return.
+
 \begin{table}[h]
 \small
 \centering
 \begin{tabular}{|l|c|c|c|} \hline
 	Event type & P & R & F \\ \hline
 	olympics.medal\_honor 
-	% \footnote{The full name is olympics.olympic\_medal\_honor in Freebase.} 
+	 \footnote{The full name is olympics.olympic\_medal\_honor in Freebase.} 
 	& $\downarrow$ 25.0\% & $\downarrow$ 5.0\% & $\downarrow$ 13.8\% \\ \hline
 	film.performance & $\downarrow$ 21.4\% & $\uparrow$ 3.1\% & $\downarrow$10.3\% \\ \hline
 	business.acquisition & $\rightarrow$ & $\downarrow$ 7.1\% & $\downarrow$ 5.4\% \\ \hline
 	tv.appearance 
-	% \footnote{The full name is tv.regular\_tv\_appearance in Freebase.} 
+	 \footnote{The full name is tv.regular\_tv\_appearance in Freebase.} 
 	& $\downarrow$ 9.5\% & $\uparrow$ 3.0\% & $\downarrow$ 3.1\% \\ \hline
 	film.release 
-	% \footnote{The full name is film.film\_regional\_release\_date in Freebase.} 
+	 \footnote{The full name is film.film\_regional\_release\_date in Freebase.} 
 	& $\downarrow$ 7.7\% & $\uparrow$ 5.6\% & $\downarrow$ 0.55\% \\ \hline
 \end{tabular}
 \caption{Top 5 event types whose performances on event classification differ most from automatic evaluation. The model we evaluated is LSTM-CRF-ILP$_{multi}$ \label{tab:4}}
 \end{table}
 
-Most of the performance differences are caused by the stage of data generation. Figure~\ref{fig:1} examples two types of errors in data generation. Some of the sentences automatic generated test set are noisy, in other words, they do not imply any event while still match all key properties of certain instances. Take S5 as an example, though the phrases \emph{the car} matches a film name, it does not indicate this film, and there is no explicit evidence expressing that an actor starring in a film. This is a bottleneck of our data generation strategy. During manual evaluation, we find 16 negative sentences which are mistakenly labeled due to this reason. Unfortunately, our model fails to rectify 10 of them.
-
-Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances that not referenced in Freebase. There are two events mentioned in S6, while the arguments of the second event do not match any CVT instances in Freebase, leading to an omitting event in data generation. This phenomenon suggests that learning from distant supervision provided by Freebase, our model can help complete and update properties of Freebase instances in return.
-
 \input{related}
 
 \section{Conclusions and Future Work}
-Motivated by the data labeling problem in ACE event extraction system, we explore a method to generate training data automatically based on four hypotheses between arguments and events. The manual evaluation result demonstrates that our hypotheses are feasible, and the produced dataset is clean and high-quality.
-
-In addition, we propose a LSTM-CRF model with a ILP-based post inference approach to perform event extraction on the auto-generated data. Experimental results of both manual and automatic evaluation show that our model can not only extract simple events, but also multi-type events and multiple events within one sentence.Furthermore, we find that our model can extract information not collected by Freebase. In the future, we intend to explore an approach to extend this work to knowledge base population. 
+Motivated by the data labeling problem in existing event extraction system, we leverage structured knowledge base to automatically generate training instance, and propose a new event extraction paradigm without trigger annotation. Manual evaluation  demonstrates the produced dataset is high-quality. In addition, we propose a LSTM-CRF model with ILP-based post inference approach to extract events on the auto-generated data. Experimental results of both manual and automatic evaluation show that our model can extract both simple and multi-type events effectively.Furthermore, we find that our model can extract information not collected by Freebase. In the future, we intend to explore an approach to extend this work to knowledge base population. 
 % \section*{Acknowledgments}
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c

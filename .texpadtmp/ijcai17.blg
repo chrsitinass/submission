@@ -8,49 +8,6 @@ Repeated entry---line 204 of file ../ijcai17.bib
  :                             ,
 I'm skipping whatever remains of this entry
 Warning--can't use both volume and number fields in berant2013semantic
-<<<<<<< c0aec91567897f917ea40f1c1453a3c6cb806b2b
-You've used 27 entries,
-            2439 wiz_defined-function locations,
-            705 strings with 9254 characters,
-and the built_in function-call counts, 13648 in all, are:
-= -- 1399
-> -- 606
-< -- 22
-+ -- 217
-- -- 212
-* -- 1046
-:= -- 2055
-add.period$ -- 86
-call.type$ -- 27
-change.case$ -- 214
-chr.to.int$ -- 27
-cite$ -- 28
-duplicate$ -- 577
-empty$ -- 1006
-format.name$ -- 242
-if$ -- 2939
-int.to.chr$ -- 1
-int.to.str$ -- 0
-missing$ -- 26
-newline$ -- 137
-num.names$ -- 81
-pop$ -- 239
-preamble$ -- 1
-purify$ -- 241
-quote$ -- 0
-skip$ -- 501
-stack$ -- 0
-substring$ -- 754
-swap$ -- 225
-text.length$ -- 22
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 216
-warning$ -- 1
-while$ -- 112
-width$ -- 32
-write$ -- 356
-=======
 You've used 26 entries,
             2439 wiz_defined-function locations,
             698 strings with 9114 characters,
@@ -92,5 +49,4 @@ warning$ -- 1
 while$ -- 107
 width$ -- 31
 write$ -- 342
->>>>>>> Temp
 (There was 1 error message)
