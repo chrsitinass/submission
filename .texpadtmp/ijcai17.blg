@@ -3,50 +3,50 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.aux
 The style file: ../named.bst
 Database file #1: ../ijcai17.bib
-Repeated entry---line 205 of file ../ijcai17.bib
+Repeated entry---line 204 of file ../ijcai17.bib
  : @inproceedings{chen2015event
  :                             ,
 I'm skipping whatever remains of this entry
 Warning--can't use both volume and number fields in berant2013semantic
-You've used 25 entries,
+You've used 27 entries,
             2439 wiz_defined-function locations,
-            696 strings with 8953 characters,
-and the built_in function-call counts, 12442 in all, are:
-= -- 1266
-> -- 560
-< -- 20
-+ -- 201
-- -- 196
-* -- 960
-:= -- 1886
-add.period$ -- 78
-call.type$ -- 25
-change.case$ -- 198
-chr.to.int$ -- 25
-cite$ -- 26
-duplicate$ -- 523
-empty$ -- 915
-format.name$ -- 223
-if$ -- 2665
+            705 strings with 9254 characters,
+and the built_in function-call counts, 13648 in all, are:
+= -- 1399
+> -- 606
+< -- 22
++ -- 217
+- -- 212
+* -- 1046
+:= -- 2055
+add.period$ -- 86
+call.type$ -- 27
+change.case$ -- 214
+chr.to.int$ -- 27
+cite$ -- 28
+duplicate$ -- 577
+empty$ -- 1006
+format.name$ -- 242
+if$ -- 2939
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 24
-newline$ -- 127
-num.names$ -- 75
-pop$ -- 219
+missing$ -- 26
+newline$ -- 137
+num.names$ -- 81
+pop$ -- 239
 preamble$ -- 1
-purify$ -- 223
+purify$ -- 241
 quote$ -- 0
-skip$ -- 453
+skip$ -- 501
 stack$ -- 0
-substring$ -- 672
-swap$ -- 199
-text.length$ -- 20
+substring$ -- 754
+swap$ -- 225
+text.length$ -- 22
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 200
+type$ -- 216
 warning$ -- 1
-while$ -- 102
-width$ -- 30
-write$ -- 328
+while$ -- 112
+width$ -- 32
+write$ -- 356
 (There was 1 error message)
