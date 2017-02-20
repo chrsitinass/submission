@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.19)  20 FEB 2017 16:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.19)  20 FEB 2017 17:03
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -286,7 +286,12 @@ Underfull \hbox (badness 2359) in paragraph at lines 27--27
 \OT1/ptm/m/it/10 quir-ing[]company \OT1/ptm/m/n/10 and \OT1/ptm/m/it/10 date \OT1/ptm/m/n/10 are key ar-gu-ments in \OT1/ptm/m/it/10 busi-
  []
 
-[2 <./temp.png>] <deppath.png, id=21, 932.48375pt x 197.73875pt>
+[2 <./temp.png>]
+Underfull \hbox (badness 2261) in paragraph at lines 44--46
+\OT1/ptm/m/n/10 where $\OML/cmm/m/it/10 count\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 cvt\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 is the num-ber of all $\OML/cmm/m/it/10 cvt$ \OT1/ptm/m/n/10 in-stances,
+ []
+
+<deppath.png, id=21, 932.48375pt x 197.73875pt>
 File: deppath.png Graphic file (type png)
  <use deppath.png>
 Package pdftex.def Info: deppath.png used on input line 54.
@@ -330,103 +335,92 @@ Underfull \hbox (badness 7981) in paragraph at lines 15--16
  []
 
 [3 <./deppath.png>])
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 72.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 71.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 72.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 71.
  [4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 125.
-
-Underfull \hbox (badness 6876) in paragraph at lines 135--136
- \OT1/ptm/b/n/10 Com-par-i-son with base-lines[] \OT1/ptm/m/n/10 Tra-di-tional feature-based
- []
-
-[5] <example.png, id=39, 697.60625pt x 350.30875pt>
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 114.
+ [5] <example.png, id=39, 697.60625pt x 350.30875pt>
 File: example.png Graphic file (type png)
  <use example.png>
-Package pdftex.def Info: example.png used on input line 169.
+Package pdftex.def Info: example.png used on input line 155.
 (pdftex.def)             Requested size: 242.82503pt x 121.93639pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[6 <./example.png>] (./related.tex) (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 24--29
+(./related.tex [6 <./example.png>]) (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 24--28
 []\OT1/ptm/m/n/10 Kurt Bol-lacker, Colin Evans,
  []
 
 
-Underfull \hbox (badness 5548) in paragraph at lines 45--49
+Underfull \hbox (badness 5548) in paragraph at lines 44--48
 []\OT1/ptm/m/n/10 Ronan Col-lobert, Ja-son We-ston,
  []
 
 
-Underfull \hbox (badness 1533) in paragraph at lines 45--49
+Underfull \hbox (badness 1533) in paragraph at lines 44--48
 \OT1/ptm/m/n/10 Pavel Kuksa.  Nat-u-ral lan-guage pro-cess-ing (al-most)
  []
 
 
-Underfull \hbox (badness 4479) in paragraph at lines 52--57
+Underfull \hbox (badness 4479) in paragraph at lines 51--56
 []\OT1/ptm/m/n/10 George R Dod-ding-ton, Alexis
  []
 
 
-Underfull \hbox (badness 5091) in paragraph at lines 52--57
+Underfull \hbox (badness 5091) in paragraph at lines 51--56
 \OT1/ptm/m/n/10 Mitchell, Mark A Przy-bocki, Lance A Ramshaw,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 65--67
+Underfull \hbox (badness 10000) in paragraph at lines 64--66
 []\OT1/ptm/m/n/10 Inc. Gurobi Op-ti-miza-tion.
  []
 
 
-Underfull \hbox (badness 3612) in paragraph at lines 70--73
+Underfull \hbox (badness 3612) in paragraph at lines 69--72
 []\OT1/ptm/m/n/10 Sepp Hochre-iter and
  []
 
-[7]
-Underfull \hbox (badness 2495) in paragraph at lines 94--99
+
+Underfull \hbox (badness 2495) in paragraph at lines 92--96
 []\OT1/ptm/m/n/10 John Laf-ferty, An-drew Mc-Cal-lum,
  []
 
 
-Underfull \hbox (badness 2469) in paragraph at lines 102--106
+Underfull \hbox (badness 2469) in paragraph at lines 99--103
 []\OT1/ptm/m/n/10 Guillaume Lam-ple, Miguel Balles-
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 145--150
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 134--139
 []\OT1/ptm/m/n/10 Teruko Mi-ta-mura, Yukari Ya-
  []
 
 
-Underfull \hbox (badness 1558) in paragraph at lines 145--150
-\OT1/ptm/m/n/10 makawa, Su-san Holm, Zhiyi Song, Ann Bies, Seth
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 165--171
+Underfull \hbox (badness 10000) in paragraph at lines 154--160
 []\OT1/ptm/m/n/10 Zhiyi Song, Ann Bies, Stephanie
  []
 
-) [8] (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.aux) ) 
+) [8
+
+] (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.aux) ) 
 Here is how much of TeX's memory you used:
- 2722 strings out of 493089
- 37517 string characters out of 6134842
- 120182 words of memory out of 5000000
- 6104 multiletter control sequences out of 15000+600000
+ 2721 strings out of 493089
+ 37498 string characters out of 6134842
+ 119165 words of memory out of 5000000
+ 6103 multiletter control sequences out of 15000+600000
  37698 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,15n,23p,1213b,298s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.pdf (8 pages, 535570 bytes).
+Output written on /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.pdf (8 pages, 534227 bytes).
 PDF statistics:
  115 PDF objects out of 1000 (max. 8388607)
  79 compressed objects within 1 object stream
