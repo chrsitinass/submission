@@ -61,15 +61,11 @@
 
 \section{Experiments}
 \subsection{Experimental Setup}
-\paragraph{Dataset and Evaluation Methodology}
-We use the November 20th, 2016 English Wikipedia dump, and generate 7180 sentences, containing 7376 events and 25840 arguments as corpus. We then randomly select 4800 sentences for training and 1180 sentences as test set, and the remained 1200 sentences for validation. We conducted both automatic evaluation and manual evaluation in the experiments. Specifically, we first manually evaluate the reliability of our test set. Next, we regard the noisy rule-generated data as gold standard and evaluate our model automatically. Finally, we manually evaluate a subset of events detected by our model and analysis the difference with results in automatic evaluation.
+\textbf{Dataset and Evaluation Methodology}. We use the November 20th, 2016 English Wikipedia dump, and generate 7180 sentences, containing 7376 events and 25840 arguments as corpus. We then randomly select 4800 sentences for training and 1180 sentences as test set, and the remained 1200 sentences for validation. We conducted both automatic evaluation and manual evaluation in the experiments. We first manually evaluate the quality of our test set. Next, we regard the noisy rule-generated data as gold standard and evaluate our model automatically. Finally, we manually evaluate a subset of events detected by our model and analysis the difference with results in automatic evaluation.
 
-\paragraph{Evaluation Measures}
-We evaluated our models in terms of precision (P), recall (R), and F-measure (F) for each subtask. These performance metrics are computed according to the following standards of correctness: For event type classification, an event is correctly classified if its reference sentence contains all key arguments of this event type; For argument detection, an argument is correctly detected if its offsets, role, and related event type exactly match any reference argument within the same sentence; For event detection, an event is correctly detected if its type and all its key arguments match a reference event within the same sentence.
+\noindent \textbf{Evaluation Measures}. We evaluated our models in terms of precision (P), recall (R), and F-measure (F) for each subtask. These performance metrics are computed according to the following standards of correctness: For event type classification, an event is correctly classified if its reference sentence contains all key arguments of this event type; For argument detection, an argument is correctly detected if its offsets, role, and related event type exactly match any reference argument within the same sentence; For event detection, an event is correctly detected if its type and all its key arguments match a reference event within the same sentence.
 
-\paragraph{Training}
-In our experiments, all hyperparameters are tuned on the development set. In event detection, we set the size of word embedding to 200, the size of LSTM layer to 100. In argument detection, we use the same size of word embedding, while the size of LSTM layer is 150, and the size of key argument embedding is 50.
-During training, we apply the generic stochastic gradient descent \cite{bottou2010large} with a dropout rate as 0.5 on both the input and output layers to mitigate overfitting. Word embeddings are pretrained using skip-gram word2vec model \cite{mikolov2013distributed} over the whole Wikipedia dump and fine tuned during training. 
+\noindent \textbf{Training}. All hyperparameters are tuned on the development set. In event detection, we set the size of word embedding to 200, the size of LSTM layer to 100. In argument detection, we use the same size of word embedding, while the size of LSTM layer is 150, and the size of key argument embedding is 50. Word embeddings are pretrained using skip-gram word2vec model \cite{mikolov2013distributed} over the whole Wikipedia dump and fine tuned during training. To mitigate overfitting, we apply a dropout rate of 0.5 on both the input and output layers. 
 
 \subsection{Dataset Evaluation}\label{sec:evalhypo}
 For comparison, we evaluate five datasets that utilize different hypotheses to generate positive sentences from Wikipedia. We randomly select 100 sentences in each dataset, and annotators are asked to determine whether these sentences imply events. 
@@ -87,7 +83,7 @@ For comparison, we evaluate five datasets that utilize different hypotheses to g
 \caption{Statistic of generated dataset with different hypotheses. Instances denotes the number of CVT instances that can be used for each hypothesis. Dataset is the number of generated sentences. Event type indicates the number of different CVT types in each dataset. Correct represents the percentage of sentences which account as stating events explicitly. \label{tab:3}}
 \end{table}
 
-As shown in Table~\ref{tab:3}, the strictest hypothesis, \emph{H1}, guarantees the quality and confidence of generated data, while there are merely 30K CVT instances that contain all properties of their corresponding CVT types. And by utilizing these instances, we can only obtain 203 sentences and cover 9 types of events, which is quite insufficient for further training. \emph{H2} is looser than \emph{H1}, though it expands the resulting dataset, it produces a large number of noisy sentences. This side effect  demonstrates that \emph{H2} is inappropriate to be used as a soft constraint. Compared with \emph{H2}, the significant improvement in the quality of sentences generated by \emph{H3} proves that CVT properties referring time information are critical to data generation. Among all hypotheses, finally, data obtained by a combination of \emph{H3} and \emph{H4} achieves highest precision, which demonstrates that our hypothesis \emph{H3} and \emph{H4} are feasible and it is an effective way to generate reliable data automatically.
+As shown in Table~\ref{tab:3}, the strictest hypothesis, \emph{H1}, guarantees the quality and confidence of generated data, while we can merely obtain 203 sentences and cover 9 types of events,  which is quite insufficient for further training. \emph{H2} is looser than \emph{H1}, though it expands the resulting dataset, it produces a large number of noisy sentences. This side effect  demonstrates that \emph{H2} is inappropriate to be used as a soft constraint. Compared with \emph{H2}, the significant improvement in the quality of sentences generated by \emph{H3} proves that CVT properties referring time information are critical to data generation. Among all hypotheses, finally, data obtained by a combination of \emph{H3} and \emph{H4} achieves highest precision, which demonstrates that our hypothesis \emph{H3} and \emph{H4} are feasible and it is an effective way to generate reliable data automatically.
 
 \subsection{Baselines}
 To investigate the effectiveness of our proposed model, we develop three baseline extraction systems for comparison, including traditional feature-based methods and neural network models. For neural network method, we train a long short-term memory network that takes word embeddings as the input, and simply learns a probability distribution over all possible labels. For feature-based methods, we apply Conditional Random Field \cite{lafferty2001conditional} and Maximum Entropy \cite{berger1996maximum} to explore a variety of elaborate features (lexical, syntactic, entity information features) modified from state-of-art feature-based ACE event extraction system \cite{li2013joint}. It is worth mentioning that during argument detection, we add the label of each word output by event detection as a supplementary feature.
@@ -95,7 +91,8 @@ To investigate the effectiveness of our proposed model, we develop three baselin
 We derive these features using Stanford CoreNLP \cite{manning2014stanford}, and apply the implementation from the CRF++ toolkit \cite{kudo2005crf++} and Le Zhang \footnote{\url{https://github.com/lzhang10/maxent}} to train CRF and max entropy classifiers, respectively.
 
 \subsection{Automatic Evaluations}
-As we can summarize from Table~\ref{tab:1}, traditional feature-based models are inefficient in both event detection and argument detection. Some of features they utilized, such as dependency features, suffer much from the absence of trigger. Although they can achieve high precisions, they can only extract a limited number of events, resulting in low recalls. Neural-network-based methods performs much better than feature-based models, because they can make better use of word semantic features, especially, LSTM can capture longer range dependencies and richer contextual information instead of neighborly word features. Moreover, neural-network-based methods can avoid errors propagating from other NLP preprocessing tools like POS tagging and NER.
+As we can summarize from Table~\ref{tab:1}, traditional feature-based models are inefficient in both event detection and argument detection. Some of features they utilized, such as dependency features, suffer much from the absence of trigger. Although they can achieve high precisions, they can only extract a limited number of events, resulting in low recalls. Neural-network-based methods performs much better than feature-based models, because they can make better use of word semantic features, especially, LSTM can capture longer range dependencies and richer contextual information instead of neighborly word features. 
+% Moreover, neural-network-based methods can avoid errors propagating from other NLP preprocessing tools like POS tagging and NER.
 
 \begin{table*}[!t]
 \centering
@@ -114,21 +111,15 @@ As we can summarize from Table~\ref{tab:1}, traditional feature-based models are
 \caption{Overall system performance of automatic evaluations. (\%) \label{tab:1}}
 \end{table*}
 
-\paragraph{Effect of CRF Layer}
-Every model which has a CRF layer over its LSTM output layer is superior to the one with a simple LSTM layer. Compared with LSTM model, LSTM-CRF achieves higher precisions and recalls in all subtasks by significantly reducing the invalid labeling sequences (e.g., \texttt{I-arg} appears right after \texttt{O}). During prediction, instead of tagging each token independently, LSTM-CRF takes into account the constraints between neighbor labels, and increases the cooccurrences of key arguments with regard to the same event type in some way.
+\noindent \textbf{Effect of CRF Layer}. Every model which has a CRF layer over its LSTM output layer is superior to the one with a simple LSTM layer. Compared with LSTM model, LSTM-CRF achieves higher precisions and recalls in all subtasks by significantly reducing the invalid labeling sequences (e.g., \texttt{I-arg} appears right after \texttt{O}). During prediction, instead of tagging each token independently, LSTM-CRF takes into account the constraints between neighbor labels, and increases the cooccurrences of key arguments with regard to the same event type in some way.
 
-\paragraph{Effect of Post Inference}
-As shown in Table~\ref{tab:1}, post inference based on ILP considerably improve the overall system performance, especially in event classification. With the help of constraint \textbf{C4},  some dubious key arguments can be inferred through other key arguments from their contexts. Compared with LSTM-CRF, LSTM-CRF-ILP$_1$ produces a gain of 7.4 in event classification, 1.8 in event detection, and 4.6 in argument detection, with respect to the F1 score.
-
-We further investigate the effect of our heuristic method, LSTM-CRF-ILP$_{multi}$ which deals with the multi-event sentence issue. Compared with other models, LSTM-CRF-ILP$_{multi}$ selects several labeling sequences according to their objective value, and extract a number of events with comparable confidences from a sentence. As we can see from Table~\ref{tab:1}, this strategy may detect multiple events for a sentence, contributing to the increase of recalls, and F1 scores at the spent of a little drop of precisions. 
+\noindent \textbf{Effect of Post Inference}. As shown in Table~\ref{tab:1}, post inference based on ILP considerably improve the overall system performance, especially in event classification. With the help of constraint \textbf{C4},  some dubious key arguments can be inferred through other key arguments from their contexts. Compared with LSTM-CRF, LSTM-CRF-ILP$_1$ produces a gain of 7.4 in event classification, 1.8 in event detection, and 4.6 in argument detection, with respect to the F1. We further investigate the effect of our heuristic method, LSTM-CRF-ILP$_{multi}$ which deals with the multi-event sentence issue. Compared with other models, LSTM-CRF-ILP$_{multi}$ selects several labeling sequences according to their objective value, and extract a number of events with comparable confidences from a sentence. As we can see from Table~\ref{tab:1}, this strategy may detect multi-type events for a sentence, contributing to the increase of recalls, and F1 scores with a little drop of precisions. 
 \subsection{Manual Evaluations}
-\paragraph{Manual Annotations}
-We randomly sample 150 unlabeled sentences from test data set. Annotators are asked to fully annotate the events and arguments to each sentence following steps. First, determine whether a given sentence is positive or negative, and assign event types to positive sentences. Next, label all related arguments and their roles according to the types of events in the positive sentences. To make the annotation more credible, each sentence is independently annotated by two annotators, and the inter-annotator agreement is 87\% for event types and 79\% for arguments.
+We randomly sample 150 unlabeled sentences from test data set. Annotators are asked to annotate the events and arguments to each sentence following two steps. First, determine whether a given sentence is positive or negative, and assign event types to positive sentences. Next, label all related arguments and their roles according to the types of events in the positive sentences. Each sentence is independently annotated by two annotators, and the inter-annotator agreement is 87\% for event types and 79\% for arguments.
 
-\paragraph{Results}
-Table~\ref{tab:2} presents the average results of manual evaluations where we measure precision, recall and F1 by the same standards of correctness as automatic evaluation.  
+Table~\ref{tab:2} presents the average F1 score of manual evaluations. We can draw similar conclusions about the comparison of performances between different models as automatic evaluation. We demonstrate that LSTM-CRF-ILP$_{multi}$ is the most effective model in event extraction as it achieves the highest F1 score in both manual and automatic evaluation.
 
-\begin{table}[t]
+\begin{table}[h]
 \small
 \centering
 \begin{tabular}{|l|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|} \hline
@@ -149,25 +140,29 @@ Table~\ref{tab:2} presents the average results of manual evaluations where we me
 	\caption{Example outputs of LSTM-CRF-ILP$_{multi}$.\label{fig:1}}
 \end{figure}
 
-We can draw similar conclusions about the comparison of performances between different models as automatic evaluation. We demonstrate that LSTM-CRF-ILP$_{multi}$ is the most effective model in event extraction as it attains the highest F1 score in both manual and automatic evaluation.
-
-Moreover, manual evaluation helps us to gain a deep insight of our generated data and proposed models. We further conduct automatic evaluation on this manual annotated dataset and list the top 5 event types whose F1 scores of LSTM-CRF-ILP$_{multi}$ differ greatly from automatic evaluation in Table~\ref{tab:4}. 
+Moreover, manual evaluation helps us to gain a deep insight of our data and models. We further conduct automatic evaluation on the manual annotated dataset and list the top 5 event types whose F1 scores of LSTM-CRF-ILP$_{multi}$ differ greatly from automatic evaluation in Table~\ref{tab:4}. 
 
 \begin{table}[h]
 \small
 \centering
 \begin{tabular}{|l|c|c|c|} \hline
 	Event type & P & R & F \\ \hline
-	olympics.medal\_honor \footnote{The full name is olympics.olympic\_medal\_honor in Freebase.} & $\downarrow$ 25.0\% & $\downarrow$ 5.0\% & $\downarrow$ 13.8\% \\ \hline
+	olympics.medal\_honor 
+	% \footnote{The full name is olympics.olympic\_medal\_honor in Freebase.} 
+	& $\downarrow$ 25.0\% & $\downarrow$ 5.0\% & $\downarrow$ 13.8\% \\ \hline
 	film.performance & $\downarrow$ 21.4\% & $\uparrow$ 3.1\% & $\downarrow$10.3\% \\ \hline
 	business.acquisition & $\rightarrow$ & $\downarrow$ 7.1\% & $\downarrow$ 5.4\% \\ \hline
-	tv.appearance \footnote{The full name is tv.regular\_tv\_appearance in Freebase.} & $\downarrow$ 9.5\% & $\uparrow$ 3.0\% & $\downarrow$ 3.1\% \\ \hline
-	film.release \footnote{The full name is film.film\_regional\_release\_date in Freebase.} & $\downarrow$ 7.7\% & $\uparrow$ 5.6\% & $\downarrow$ 0.55\% \\ \hline
+	tv.appearance 
+	% \footnote{The full name is tv.regular\_tv\_appearance in Freebase.} 
+	& $\downarrow$ 9.5\% & $\uparrow$ 3.0\% & $\downarrow$ 3.1\% \\ \hline
+	film.release 
+	% \footnote{The full name is film.film\_regional\_release\_date in Freebase.} 
+	& $\downarrow$ 7.7\% & $\uparrow$ 5.6\% & $\downarrow$ 0.55\% \\ \hline
 \end{tabular}
 \caption{Top 5 event types whose performances on event classification differ most from automatic evaluation. The model we evaluated is LSTM-CRF-ILP$_{multi}$ \label{tab:4}}
 \end{table}
 
-Most of the performance differences blame on the stage of data generation. Figure~\ref{fig:1} examples two types of errors in data generation. Some of the sentences automatic generated test set are noisy, in other words, they do not imply any event while still match all key properties of certain instances. Take S5 as an example, though the phrases \emph{the car} matches a film name, it does not indicate this film, and there is no explicit evidence expressing that an actor starring in a film. This is a bottleneck of our data generation strategy. During manual evaluation, we find 16 negative sentences and all of them are mistakenly labeled due to the same reason. Unfortunately, our model fails to identify some of these negative sentences.
+Most of the performance differences are caused by the stage of data generation. Figure~\ref{fig:1} examples two types of errors in data generation. Some of the sentences automatic generated test set are noisy, in other words, they do not imply any event while still match all key properties of certain instances. Take S5 as an example, though the phrases \emph{the car} matches a film name, it does not indicate this film, and there is no explicit evidence expressing that an actor starring in a film. This is a bottleneck of our data generation strategy. During manual evaluation, we find 16 negative sentences which are mistakenly labeled due to this reason. Unfortunately, our model fails to rectify 10 of them.
 
 Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances that not referenced in Freebase. There are two events mentioned in S6, while the arguments of the second event do not match any CVT instances in Freebase, leading to an omitting event in data generation. This phenomenon suggests that learning from distant supervision provided by Freebase, our model can help complete and update properties of Freebase instances in return.
 

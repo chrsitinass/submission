@@ -1,4 +1,8 @@
+<<<<<<< c0aec91567897f917ea40f1c1453a3c6cb806b2b
 This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.19)  20 FEB 2017 18:28
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.19)  20 FEB 2017 18:23
+>>>>>>> Temp
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -275,17 +279,18 @@ Underfull \hbox (badness 2134) in paragraph at lines 2--3
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 17.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 20.
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 18.
 <temp.png, id=13, 915.42pt x 516.93124pt>
 File: temp.png Graphic file (type png)
  <use temp.png>
-Package pdftex.def Info: temp.png used on input line 26.
+Package pdftex.def Info: temp.png used on input line 24.
 (pdftex.def)             Requested size: 242.82503pt x 137.12021pt.
 
-Underfull \hbox (badness 2359) in paragraph at lines 27--27
+Underfull \hbox (badness 2359) in paragraph at lines 25--25
 \OT1/ptm/m/it/10 quir-ing[]company \OT1/ptm/m/n/10 and \OT1/ptm/m/it/10 date \OT1/ptm/m/n/10 are key ar-gu-ments in \OT1/ptm/m/it/10 busi-
  []
 
+<<<<<<< c0aec91567897f917ea40f1c1453a3c6cb806b2b
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -295,50 +300,39 @@ Underfull \hbox (badness 2261) in paragraph at lines 44--46
  []
 
 [2 <./temp.png>] <deppath.png, id=21, 932.48375pt x 197.73875pt>
+=======
+[2 <./temp.png>]
+Underfull \hbox (badness 2261) in paragraph at lines 40--42
+\OT1/ptm/m/n/10 where $\OML/cmm/m/it/10 count\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 cvt\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 is the num-ber of all $\OML/cmm/m/it/10 cvt$ \OT1/ptm/m/n/10 in-stances,
+ []
+
+
+Underfull \hbox (badness 1038) in paragraph at lines 44--45
+\OT1/ptm/m/it/10 busi-ness.accquisition \OT1/ptm/m/n/10 while con-tain all key prop-er-ties of
+ []
+
+<deppath.png, id=21, 932.48375pt x 197.73875pt>
+>>>>>>> Temp
 File: deppath.png Graphic file (type png)
  <use deppath.png>
-Package pdftex.def Info: deppath.png used on input line 54.
+Package pdftex.def Info: deppath.png used on input line 50.
 (pdftex.def)             Requested size: 242.82503pt x 51.49232pt.
 ) (./Model.tex
-Underfull \hbox (badness 1616) in paragraph at lines 4--5
-\OT1/ptm/m/n/10 tence. And if a sen-tence con-tains \OT1/ptm/b/n/10 all \OT1/ptm/m/n/10 key ar-gu-ments
- []
-
-
-Underfull \hbox (badness 1565) in paragraph at lines 4--5
-\OT1/ptm/m/n/10 of a spe-cific event type, it is con-sid-ered to im-ply an
- []
-
-
-Underfull \hbox (badness 1057) in paragraph at lines 4--5
-\OT1/ptm/m/n/10 event of the cor-re-spond-ing type. For ex-am-ple, in S1,
- []
-
-
-Underfull \hbox (badness 5331) in paragraph at lines 4--5
-\OT1/ptm/m/it/10 Rem-edy Corp\OT1/ptm/m/n/10 , \OT1/ptm/m/it/10 BMC Soft-ware\OT1/ptm/m/n/10 , and \OT1/ptm/m/it/10 2004 \OT1/ptm/m/n/10 should be
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4--5
-\OT1/ptm/m/n/10 iden-ti-fied as \OT1/ptm/m/it/10 busi-ness.acquisition.company[]acquired\OT1/ptm/m/n/10 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 4--5
-\OT1/ptm/m/it/10 busi-ness.acquisition.acquiring[]company\OT1/ptm/m/n/10 , and \OT1/ptm/m/it/10 busi-
- []
-
 LaTeX Font Info:    Try loading font information for OT1+pcr on input line 12.
-(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 Underfull \hbox (badness 7981) in paragraph at lines 15--16
  \OT1/ptm/b/n/10 LSTM[] \OT1/ptm/m/n/10 Long Short-Term Mem-ory Net-work (LSTM)
  []
 
-[3 <./deppath.png>]) [4]
+[3 <./deppath.png>])
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+<<<<<<< c0aec91567897f917ea40f1c1453a3c6cb806b2b
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 108.
  <example.png, id=36, 697.60625pt x 350.30875pt>
 File: example.png Graphic file (type png)
@@ -346,27 +340,40 @@ File: example.png Graphic file (type png)
 Package pdftex.def Info: example.png used on input line 149.
 (pdftex.def)             Requested size: 242.82503pt x 121.93639pt.
  [5 <./example.png>] (./related.tex [6]) (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.bbl
+=======
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 105.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<example.png, id=36, 697.60625pt x 350.30875pt>
+File: example.png Graphic file (type png)
+ <use example.png>
+Package pdftex.def Info: example.png used on input line 140.
+(pdftex.def)             Requested size: 242.82503pt x 121.93639pt.
+ [5 <./example.png>] (./related.tex) [6] (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.bbl
+>>>>>>> Temp
 Underfull \hbox (badness 10000) in paragraph at lines 24--28
 []\OT1/ptm/m/n/10 Kurt Bol-lacker, Colin Evans,
  []
 
 
-Underfull \hbox (badness 5548) in paragraph at lines 44--48
+Underfull \hbox (badness 5548) in paragraph at lines 38--42
 []\OT1/ptm/m/n/10 Ronan Col-lobert, Ja-son We-ston,
  []
 
 
-Underfull \hbox (badness 1533) in paragraph at lines 44--48
+Underfull \hbox (badness 1533) in paragraph at lines 38--42
 \OT1/ptm/m/n/10 Pavel Kuksa.  Nat-u-ral lan-guage pro-cess-ing (al-most)
  []
 
 
-Underfull \hbox (badness 4479) in paragraph at lines 51--56
+Underfull \hbox (badness 4479) in paragraph at lines 45--50
 []\OT1/ptm/m/n/10 George R Dod-ding-ton, Alexis
  []
 
 
-Underfull \hbox (badness 5091) in paragraph at lines 51--56
+Underfull \hbox (badness 5091) in paragraph at lines 45--50
 \OT1/ptm/m/n/10 Mitchell, Mark A Przy-bocki, Lance A Ramshaw,
  []
 
@@ -381,11 +388,16 @@ Underfull \hbox (badness 3612) in paragraph at lines 75--78
  []
 
 
+<<<<<<< c0aec91567897f917ea40f1c1453a3c6cb806b2b
 Underfull \hbox (badness 2495) in paragraph at lines 105--109
+=======
+Underfull \hbox (badness 2495) in paragraph at lines 99--103
+>>>>>>> Temp
 []\OT1/ptm/m/n/10 John Laf-ferty, An-drew Mc-Cal-lum,
  []
 
 
+<<<<<<< c0aec91567897f917ea40f1c1453a3c6cb806b2b
 Underfull \hbox (badness 2469) in paragraph at lines 112--116
 []\OT1/ptm/m/n/10 Guillaume Lam-ple, Miguel Balles-
  []
@@ -397,6 +409,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 147--152
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 167--173
+=======
+Underfull \hbox (badness 2469) in paragraph at lines 106--110
+[]\OT1/ptm/m/n/10 Guillaume Lam-ple, Miguel Balles-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 141--146
+[]\OT1/ptm/m/n/10 Teruko Mi-ta-mura, Yukari Ya-
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 161--167
+>>>>>>> Temp
 []\OT1/ptm/m/n/10 Zhiyi Song, Ann Bies, Stephanie
  []
 
@@ -404,15 +429,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 167--173
 
 ] (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.aux) ) 
 Here is how much of TeX's memory you used:
+<<<<<<< c0aec91567897f917ea40f1c1453a3c6cb806b2b
  2706 strings out of 493089
  37232 string characters out of 6134842
  120213 words of memory out of 5000000
  6091 multiletter control sequences out of 15000+600000
+=======
+ 2705 strings out of 493089
+ 37215 string characters out of 6134842
+ 121196 words of memory out of 5000000
+ 6090 multiletter control sequences out of 15000+600000
+>>>>>>> Temp
  37698 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,15n,23p,1213b,298s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,10n,23p,1213b,240s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+<<<<<<< c0aec91567897f917ea40f1c1453a3c6cb806b2b
 Output written on /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.pdf (8 pages, 535011 bytes).
+=======
+Output written on /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.pdf (8 pages, 533975 bytes).
+>>>>>>> Temp
 PDF statistics:
  115 PDF objects out of 1000 (max. 8388607)
  79 compressed objects within 1 object stream

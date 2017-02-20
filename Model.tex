@@ -1,12 +1,12 @@
 \section{Model}
-Unlike existing event extraction work in which triggers are the key evidence to identify event and classify different event types, in the absence of human-labeled triggers, we argue that \textbf{key arguments} can play the same role as triggers. Consequently, we can treat event extraction as a pipeline of two primary subtasks, namely event detection and argument detection.
+Unlike existing event extraction work in which triggers are the key clues to identify event and classify different event types, in the absence of human-labeled triggers, we argue that \textbf{key arguments} can play the same role as triggers. Consequently, we can treat event extraction as a pipeline of two primary subtasks, namely event detection and argument detection. 
 
-\noindent \textbf{Event detection}: to identify key arguments in the sentence. And if a sentence contains \textbf{all} key arguments of a specific event type, it is considered to imply an event of the corresponding type. For example, in S1, \emph{Remedy Corp}, \emph{BMC Software}, and \emph{2004} should be identified as \emph{business.acquisition.company\_acquired}, \emph{business.acquisition.acquiring\_company}, and \emph{business.acquisition.date} respectively. As a result, S1 should be labeled as expressing an event about \emph{business.acquisition}.
+\textbf{Event detection} aims to identify key arguments in the sentence. And if a sentence contains \textbf{all} key arguments of a specific event type, it is considered to imply an event of the corresponding type. Take S1 as an example, \emph{Remedy Corp}, \emph{BMC Software}, and \emph{2004} should be identified as \emph{company\_acquired}, \emph{acquiring\_company}, and \emph{date}, respectively. As a result, S1 should be labeled as expressing an event about \emph{business.acquisition}. 
 
-\noindent \textbf{Argument detection}: to identify other non-key arguments for each event in the sentence. For the \emph{business.acquisition} event in S1, \emph{Service Management Business Unit} should be identified as \emph{business.acquisition.divisions\_formed}.
+\textbf{Argument detection} aims to identify other non-key arguments for each event in the sentence. For the \emph{business.acquisition} event in S1, \emph{Service Management Business Unit} should be identified as \emph{divisions\_formed}.
 
 \subsection{Event Detection \label{evede}}
-Before presenting our model, we need to come up with the solution to multi-words arguments. Then we introduce the components in our LSTM-CRF-ILP$_{multi}$ model one-by-one from bottom to top.
+Before presenting our model, we need to propose the solution to multi-words arguments. Then we introduce the components in our LSTM-CRF-ILP$_{multi}$ model one-by-one from bottom to top.
 
 \paragraph{Tagging scheme}
 68 percent of arguments in our dataset consist of more than one words. To address this issue, we model each subtask as a sequence labeling task rather than a word classification task. Each word in the given sentence is tagged in the \texttt{BIO} scheme, where each token is labeled as \texttt{B-role} if it is the beginning of an event argument with its corresponding role \texttt{role}, or \texttt{I-role} if it is inside an argument, or \texttt{O} otherwise. 
@@ -15,9 +15,7 @@ Before presenting our model, we need to come up with the solution to multi-words
 Long Short-Term Memory Network (LSTM) \cite{hochreiter1997long} is a natural model for sequence labeling task, which maintains a memory based on historical contextual information. Formally, given a sentence $\bm{w} = \{w_1, w_2, \dots, w_n\}$ of length $n$, we use $\textbf{x}_t$ to represent feature vector (e.g. word embedding) corresponding to the $t$-th word $w_t$. At each time step $t$, a LSTM unit takes $\textbf{x}_t$ as input and computes the output vector $\textbf{h}_t$ through several multiplicative gates. Then output vector is fed into a softmax layer to estimate a probability distribution over all possible labels.
 
 \paragraph{CRF}
-A straightforward way is to choose the label which obtains maximum probability by LSTM as the prediction for each word. However, this independent labeling strategy is limited especially when there are strong dependencies and constraints between arguments.
-% For instance, \texttt{B-acquiring\_company} is more likely to be followed by \texttt{B-company\_acquired}, while \texttt{I-company\_acquired} is not allowed to follow \texttt{B-acquiring\_company}. 
-To model the correlations between labels, we introduce a CRF layer into the output of LSTM, which is widely used and proved to be effective in various sequence labeling tasks, such as POS tagging and NER \cite{collobert2011natural,huang2015bidirectional,lample2016neural}.
+A straightforward way is to choose the label which obtains maximum probability by LSTM as the prediction for each word. However, this independent labeling strategy is limited especially when there are strong dependencies and constraints between labels. To model the correlations between labels, we introduce a CRF layer into the output of LSTM, which is widely used and proved to be effective in various sequence labeling tasks, such as POS tagging and NER \cite{collobert2011natural,huang2015bidirectional}.
 
 We consider $\textbf{P}$ to be a matrix of confidence scores output by LSTM network, and the element $\textbf{P}_{i,j}$ of the matrix denotes the probability of the label $j$ for the $i$-th word in a sentence. The CRF layer has a transition score matrix $\textbf{A}$ as parameter, where $\textbf{A}_{i,j}$ represents the score of a transition from label $i$ to label $j$. The score of a sentence $\bm{w}$ along with a path of labels $\bm{y} = \{y_1, y_2, \ldots, y_n\}$ is measured by the sum of neural network outputs and transition scores: 
 \begin{equation}
@@ -43,7 +41,7 @@ We consider the following four constraints:
 	v_{i,l,l'} = \sum\nolimits_{l^*}v_{i+1,l',l^*}
 \end{equation}
 
-\textbf{C3}: If current label is \texttt{I-arg}, then its previous label must be \texttt{B-arg}, i.e.:
+\textbf{C3}: If the current label is \texttt{I-arg}, then its previous label must be \texttt{B-arg}, i.e.:
 \begin{equation}
 	v_{i,\texttt{I-arg},l'} = v_{i-1,\texttt{B-arg},\texttt{I-arg}}
 \end{equation}

@@ -26,12 +26,6 @@ Kurt Bollacker, Colin Evans, Praveen Paritosh, Tim Sturge, and Jamie Taylor.
   human knowledge.
 \newblock In {\em SIGMOD 2008}, pages 1247--1250. ACM, 2008.
 
-\bibitem[\protect\citeauthoryear{Bottou}{2010}]{bottou2010large}
-L{\'e}on Bottou.
-\newblock Large-scale machine learning with stochastic gradient descent.
-\newblock In {\em Proceedings of COMPSTAT'2010}, pages 177--186. Springer,
-  2010.
-
 \bibitem[\protect\citeauthoryear{Chen \bgroup \em et al.\egroup
   }{2015}]{chen2015event}
 Yubo Chen, Liheng Xu, Kang Liu, Daojian Zeng, and Jun Zhao.
