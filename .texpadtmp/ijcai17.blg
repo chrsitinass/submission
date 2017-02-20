@@ -8,45 +8,45 @@ Repeated entry---line 205 of file ../ijcai17.bib
  :                             ,
 I'm skipping whatever remains of this entry
 Warning--can't use both volume and number fields in berant2013semantic
-You've used 29 entries,
+You've used 26 entries,
             2439 wiz_defined-function locations,
-            717 strings with 10103 characters,
-and the built_in function-call counts, 14490 in all, are:
-= -- 1491
-> -- 626
-< -- 23
-+ -- 223
-- -- 218
-* -- 1107
-:= -- 2177
-add.period$ -- 92
-call.type$ -- 29
-change.case$ -- 225
-chr.to.int$ -- 29
-cite$ -- 30
-duplicate$ -- 617
-empty$ -- 1078
-format.name$ -- 251
-if$ -- 3123
+            702 strings with 9515 characters,
+and the built_in function-call counts, 12775 in all, are:
+= -- 1303
+> -- 567
+< -- 20
++ -- 203
+- -- 198
+* -- 988
+:= -- 1940
+add.period$ -- 81
+call.type$ -- 26
+change.case$ -- 203
+chr.to.int$ -- 26
+cite$ -- 27
+duplicate$ -- 537
+empty$ -- 943
+format.name$ -- 226
+if$ -- 2732
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 28
-newline$ -- 147
-num.names$ -- 87
-pop$ -- 249
+missing$ -- 25
+newline$ -- 132
+num.names$ -- 78
+pop$ -- 221
 preamble$ -- 1
-purify$ -- 254
+purify$ -- 229
 quote$ -- 0
-skip$ -- 537
+skip$ -- 464
 stack$ -- 0
-substring$ -- 815
-swap$ -- 239
-text.length$ -- 23
+substring$ -- 696
+swap$ -- 201
+text.length$ -- 20
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 232
+type$ -- 208
 warning$ -- 1
-while$ -- 121
-width$ -- 34
-write$ -- 382
+while$ -- 106
+width$ -- 31
+write$ -- 341
 (There was 1 error message)

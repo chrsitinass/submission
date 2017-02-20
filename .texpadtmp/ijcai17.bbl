@@ -61,12 +61,6 @@ Ralph Grishman and Beth Sundheim.
 \newblock Message understanding conference-6: A brief history.
 \newblock In {\em Coling}, volume~96, pages 466--471, 1996.
 
-\bibitem[\protect\citeauthoryear{Gupta and Ji}{2009}]{gupta2009predicting}
-Prashant Gupta and Heng Ji.
-\newblock Predicting unknown time arguments based on cross-event propagation.
-\newblock In {\em Proceedings of the ACL-IJCNLP 2009 Conference Short Papers},
-  pages 369--372. Association for Computational Linguistics, 2009.
-
 \bibitem[\protect\citeauthoryear{Gurobi~Optimization}{2016}]{gurobi}
 Inc. Gurobi~Optimization.
 \newblock Gurobi optimizer reference manual, 2016.
@@ -76,14 +70,6 @@ Inc. Gurobi~Optimization.
 Sepp Hochreiter and J{\"u}rgen Schmidhuber.
 \newblock Long short-term memory.
 \newblock {\em Neural computation}, 9(8):1735--1780, 1997.
-
-\bibitem[\protect\citeauthoryear{Hong \bgroup \em et al.\egroup
-  }{2011}]{hong2011using}
-Yu~Hong, Jianfeng Zhang, Bin Ma, Jianmin Yao, Guodong Zhou, and Qiaoming Zhu.
-\newblock Using cross-entity inference to improve event extraction.
-\newblock In {\em Proceedings of the 49th Annual Meeting of the Association for
-  Computational Linguistics: Human Language Technologies-Volume 1}, pages
-  1127--1136. Association for Computational Linguistics, 2011.
 
 \bibitem[\protect\citeauthoryear{Huang \bgroup \em et al.\egroup
   }{2015}]{huang2015bidirectional}
@@ -97,11 +83,6 @@ Lifu Huang, T~Cassidy, X~Feng, H~Ji, CR~Voss, J~Han, and A~Sil.
 \newblock Liberal event extraction and event schema induction.
 \newblock In {\em Proceedings of the 54th Annual Meeting of the Association for
   Computational Linguistics: Human Language Technologies (ACL-16)}, 2016.
-
-\bibitem[\protect\citeauthoryear{Ji and Grishman}{2008}]{ji2008refining}
-Heng Ji and Ralph Grishman.
-\newblock Refining event extraction through cross-document inference.
-\newblock In {\em ACL}, pages 254--262, 2008.
 
 \bibitem[\protect\citeauthoryear{Kudo}{2005}]{kudo2005crf++}
 Taku Kudo.
