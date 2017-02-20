@@ -32,13 +32,26 @@ This hypothesis indicates that if a sentence has all properties of a CVT, it is 
 However, in practice, we realize that \emph{H1} is too strict that excludes a great many positive sentences like S2. 
 
 \subsubsection{H2: Positive sentences should contain all key properties}
-This hypothesis is an extension of \emph{H1}, which relaxes ``all properties'' constraint to ``key properties''. We define the CVT property that plays an important part in its CVT structure and helps to distinguish with other CVT as \textbf{key property}. And \textbf{key argument} is the word/phrase that matches a key property of a CVT instance. For example, \emph{company\_acquired} and \emph{acquiring\_company} are the key properties of CVT \emph{business.acquisition}, and with this relaxation, positive sentences like S2 need not contain all properties, but only key properties instead.
+This hypothesis is an extension of \emph{H1}, which relaxes ``all properties'' constraint to ``key properties''. We define the CVT property that plays an important part in its CVT structure and helps to distinguish with other CVT as \textbf{key property}. And \textbf{key argument} is the word/phrase that matches a key property of a CVT instance. For example, \emph{company\_acquired} and \emph{acquiring\_company} are the key properties of CVT \emph{business.acquisition}, and with this relaxation, positive sentences like S2 need not contain all properties, but only key properties instead. Table~\ref{tab:5} lists key properties of four CVTs.
 
 The importance of a property $prop$ (e.g., \emph{date}) to its CVT $cvt$ (e.g., \emph{business.acquisition}) can be defined as follows:
 \begin{equation}
 	degree_{cvt, prop} = log \frac{count(cvt, prop)}{count(cvt) \times count(prop)} 
 \end{equation}
 where $count(cvt)$ is the number of all $cvt$ instances, $count(prop)$ is the number of $prop$ among all CVTs, and $count(cvt, prop)$ is the number of $cvt$ instances that contain the property $prop$.
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{|l|l|} \hline
+CVT & Key properties \\ \hline
+award.award\_honor & award\_winner, award, \ldots, year \\ \hline
+film.performance & actor, film, character \\ \hline
+education.education & institution, student, end\_date \\ \hline
+business.employment\_tenure & company, title, person, from \\ \hline
+\end{tabular}
+\caption{Examples of key properties of four CVTs.\label{tab:5}}
+\end{table}
 
 \subsubsection{H3: Key properties should include time property}
 We discover that for many CVTs, their key properties do not take into account time property. However, ignoring time property will produce a large number of negative sentences like S3. It does not express an explicit event about \emph{business.accquisition} while contain all key properties of an instance, resulting in mistaking \emph{Microsoft} for \emph{acquiring\_company}, and \emph{aQuantive} for \emph{company\_acquired}. By adding \emph{date} to the set of key properties, S3 will be filtered. Therefore, we choose the time property which achieves the highest importance value as a supplementary key property. 
