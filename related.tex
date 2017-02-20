@@ -1,10 +1,53 @@
 \section{Related Work}
-Event extraction is one of the fundamental research topics in information extraction and natural language understanding. There are diverse descriptions of event extraction tasks defined by different programs (MUC \cite{grishman1996message}, ACE \cite{doddington2004automatic}, ERE \cite{song2015light} and TACKBP \cite{mitamura2015event}), all of which can be summarized as template-filling-based event extraction. Nearly all approaches on these corpora use a supervised paradigm, and highly rely on the human-annotated data. We typically divide them into feature-based methods and neural-network-based methods. 
+Event extraction is one of the fundamental tasks in information extraction. % and natural language understanding. 
+Most event extraction works are within the tasks defined by several evaluation frameworks (e.g., MUC~\cite{grishman1996message}, 
+ACE~\cite{doddington2004automatic}, ERE~\cite{song2015light} and TAC-KBP~\cite{mitamura2015event}), 
+all of which can be considered as a template-filling-based extraction task.
+These frameworks focus on limited number of event types, which are designed and annotated by human experts and
+hard to generalize to other domains.  
+%Most approaches within  these frameworks 
+Furthermore, existing extraction systems, which usually adopt a supervised learning paradigm, 
+have to rely on those high-quality training data within those frameworks, 
+thus hard to move to more domains in practice, regardless of feature-based~\cite{gupta2009predicting,hong2011using,li2013joint} or neural-network-based methods~\cite{chen2015event,nguyen2016joint}.
 
-Feature-based methods usually rely on a variety of elaborately features. They aim to exploit different feature extraction strategies and evaluate feature contributions to the classification. Li et al. \shortcite{li2013joint} jointly learn trigger labeling and argument labeling using structured perceptron to capture both local and global features of triggers and arguments. 
+Besides the works focusing on small human-labeled corpus, 
+Huang et al. \shortcite{huang2016liberal}  propose a novel Liberal Event Extraction paradigm 
+which automatically discovers event schemas and extract events simultaneously from any unlabeled corpus. 
+In contrast, we propose to exploit existing structured knowledge bases, e.g., Freebase, to automatically discover 
+types of events as well as their corresponding argument settings, without expert annotation, and further automatically
+construct training data, with the essence of distant supervision~\cite{mintz2009distant}.
 
-Neural-network-based methods are free of hard feature engineering and error propagation from external NLP tools. Two types of neural works have been employed. Chen et al. \shortcite{chen2015event} propose a convolutional neural network (CNN) with a dynamic multi-pooling layer to capture sentence-level features better. Nguyen et al. \shortcite{nguyen2016joint} propose a bidirectional RNN with various memory matrices to jointly learn triggers and arguments, which benefits from both joint models and neural network models. However, to our knowledge, LSTM-CRF models have not been applied in earlier studies.
+Distant supervision~(DS) has been widely used  binary relation extraction, where the key assumption is that 
+ sentences containing both the subject and object of a $<$$subj$, $rel$, $obj$$>$ triple can be seen as its support, and further
+used to train a classifier to identify the relation $rel$. However,  this assumption does not fit to our event extraction scenario, 
+where an event usually involves several arguments and it is hard to collect enough training sentences with all arguments appearing in, as indicated by the low coverage of \textbf{H1}. We therefore investigate different hypotheses  for event extraction within the DS paradigm and propose to utilize time and syntactic clues to refine the DS assumption for better data quality. We further relieve the reliance on event trigger annotations by previous event extractors, and define a novel event extraction paradigm with key arguments to characterize an event type. 
 
-In contrast to these prior systems focused on small human-labeled corpus, Huang et al. \shortcite{huang2016liberal} propose a novel Liberal Event Extraction paradigm which automatically discovers event schemas and extract events simultaneously from any unlabeled corpus. 
+ 
+%
+%However, these the reliance on high-quality training data are usually  human-annotated, and  training data prevents  
+%
+%We typically divide them into feature-based methods and neural-network-based methods. 
+%
+%Most traditional feature-based methods %usually rely on a variety of elaborate features. They 
+% aim to exploit different feature extraction strategies and evaluate their contributions. 
+%Besides training classifiers for each subtask, there are also works  jointly learning trigger labeling 
+%and argument labeling using structured prediction models to capture both local and global 
+%features of triggers and arguments~\cite{li2013joint}. 
+%
+%Neural-network-based methods are free of hard feature engineering and error propagation from  external NLP tools. 
+%In the neural-network side, both convolutional neural network (CNN)~\cite{chen2015event}  and RNN have been employed 
+%to extract features of different levels. 
+%avoid hard feature engineering and error propagation from  external NLP tools. 
+%Two types of neural works have been employed. Chen et al. \shortcite{chen2015event} 
+%propose a convolutional neural network (CNN) with a dynamic multi-pooling layer to capture sentence-level features better. 
+%Nguyen et al. \shortcite{nguyen2016joint} benefit from  a bidirectional RNN with various memory 
+%matrices to jointly learn triggers and arguments within the ACE framework.% which benefits from both joint models and neural network  models. 
+%However, to our knowledge, LSTM-CRF models have not been applied in earlier studies.
+%
+%In contrast to these prior systems focused on small human-labeled corpus, Huang et al. \shortcite{huang2016liberal} 
+%propose a novel Liberal Event Extraction paradigm which automatically discovers event schemas and extract events 
+%simultaneously from any unlabeled corpus. 
 
-Freebase is a typical resource for distant supervision in binary relation extraction \cite{mintz2009distant,zeng2015distant}. However, we can not simply apply their data labeling strategies to event extraction, as event structures is much more like a n-ary relation extraction.
+Freebase is a typical resource for distant supervision in binary relation extraction \cite{mintz2009distant,zeng2015distant}. 
+However, we can not simply apply their data labeling strategies to event extraction, as event structures is much more like 
+an n-ary relation extraction.
