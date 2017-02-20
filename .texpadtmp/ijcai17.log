@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.19)  20 FEB 2017 15:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.19)  20 FEB 2017 15:45
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -267,90 +267,88 @@ Underfull \vbox (badness 1400) has occurred while \output is active []
 
 
 
-])
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 62.
- <temp.png, id=13, 915.42pt x 516.93124pt>
-File: temp.png Graphic file (type png)
- <use temp.png>
-Package pdftex.def Info: temp.png used on input line 68.
-(pdftex.def)             Requested size: 242.82503pt x 137.12021pt.
-
-Underfull \hbox (badness 2359) in paragraph at lines 69--69
-\OT1/ptm/m/it/10 quir-ing[]company \OT1/ptm/m/n/10 and \OT1/ptm/m/it/10 date \OT1/ptm/m/n/10 are key ar-gu-ments in \OT1/ptm/m/it/10 busi-
+]) (./Dataset.tex
+Underfull \hbox (badness 2134) in paragraph at lines 2--3
+\OT1/ptm/m/n/10 We em-ploy Free-base to au-to-mat-i-cally an-no-tate text in
  []
 
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 17.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 20.
+<temp.png, id=13, 915.42pt x 516.93124pt>
+File: temp.png Graphic file (type png)
+ <use temp.png>
+Package pdftex.def Info: temp.png used on input line 26.
+(pdftex.def)             Requested size: 242.82503pt x 137.12021pt.
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Underfull \hbox (badness 2359) in paragraph at lines 27--27
+\OT1/ptm/m/it/10 quir-ing[]company \OT1/ptm/m/n/10 and \OT1/ptm/m/it/10 date \OT1/ptm/m/n/10 are key ar-gu-ments in \OT1/ptm/m/it/10 busi-
+ []
 
 [2 <./temp.png>] <deppath.png, id=21, 932.48375pt x 197.73875pt>
 File: deppath.png Graphic file (type png)
  <use deppath.png>
-Package pdftex.def Info: deppath.png used on input line 109.
+Package pdftex.def Info: deppath.png used on input line 54.
 (pdftex.def)             Requested size: 242.82503pt x 51.49232pt.
-
-Underfull \hbox (badness 1616) in paragraph at lines 118--119
+)
+Underfull \hbox (badness 1616) in paragraph at lines 63--64
 \OT1/ptm/m/n/10 tence. And if a sen-tence con-tains \OT1/ptm/b/n/10 all \OT1/ptm/m/n/10 key ar-gu-ments
  []
 
 
-Underfull \hbox (badness 1565) in paragraph at lines 118--119
+Underfull \hbox (badness 1565) in paragraph at lines 63--64
 \OT1/ptm/m/n/10 of a spe-cific event type, it is con-sid-ered to im-ply an
  []
 
 
-Underfull \hbox (badness 1057) in paragraph at lines 118--119
+Underfull \hbox (badness 1057) in paragraph at lines 63--64
 \OT1/ptm/m/n/10 event of the cor-re-spond-ing type. For ex-am-ple, in S1,
  []
 
 
-Underfull \hbox (badness 5331) in paragraph at lines 118--119
+Underfull \hbox (badness 5331) in paragraph at lines 63--64
 \OT1/ptm/m/it/10 Rem-edy Corp\OT1/ptm/m/n/10 , \OT1/ptm/m/it/10 BMC Soft-ware\OT1/ptm/m/n/10 , and \OT1/ptm/m/it/10 2004 \OT1/ptm/m/n/10 should be
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--119
+Underfull \hbox (badness 10000) in paragraph at lines 63--64
 \OT1/ptm/m/n/10 iden-ti-fied as \OT1/ptm/m/it/10 busi-ness.acquisition.company[]acquired\OT1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--119
+Underfull \hbox (badness 10000) in paragraph at lines 63--64
 \OT1/ptm/m/it/10 busi-ness.acquisition.acquiring[]company\OT1/ptm/m/n/10 , and \OT1/ptm/m/it/10 busi-
  []
 
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 126.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 71.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Underfull \hbox (badness 7981) in paragraph at lines 129--130
+Underfull \hbox (badness 7981) in paragraph at lines 74--75
  \OT1/ptm/b/n/10 LSTM[] \OT1/ptm/m/n/10 Long Short-Term Mem-ory Net-work (LSTM)
  []
 
 [3 <./deppath.png>]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 197.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 142.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 197.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 142.
  [4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 250.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 195.
 
-Underfull \hbox (badness 6876) in paragraph at lines 260--261
+Underfull \hbox (badness 6876) in paragraph at lines 205--206
  \OT1/ptm/b/n/10 Com-par-i-son with base-lines[] \OT1/ptm/m/n/10 Tra-di-tional feature-based
  []
 
 [5] <example.png, id=39, 697.60625pt x 350.30875pt>
 File: example.png Graphic file (type png)
  <use example.png>
-Package pdftex.def Info: example.png used on input line 294.
+Package pdftex.def Info: example.png used on input line 239.
 (pdftex.def)             Requested size: 242.82503pt x 121.93639pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -417,15 +415,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 165--171
 
 ) [8] (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.aux) ) 
 Here is how much of TeX's memory you used:
- 2716 strings out of 493089
- 37461 string characters out of 6134842
- 120182 words of memory out of 5000000
+ 2719 strings out of 493089
+ 37492 string characters out of 6134842
+ 118182 words of memory out of 5000000
  6104 multiletter control sequences out of 15000+600000
  37698 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,15n,23p,1213b,298s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.pdf (8 pages, 536105 bytes).
+Output written on /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.pdf (8 pages, 536336 bytes).
 PDF statistics:
  115 PDF objects out of 1000 (max. 8388607)
  79 compressed objects within 1 object stream
