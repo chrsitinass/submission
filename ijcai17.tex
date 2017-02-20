@@ -57,73 +57,8 @@
 
 \input{Dataset}
 
-\section{Model}
-Unlike existing event extraction work in which triggers are the key evidence to identify event and classify different event types, in the absence of human-labeled triggers, we argue that \textbf{key arguments} can play the same role as triggers. Consequently, we can treat event extraction as a pipeline of two primary subtasks, namely event detection and argument detection.
+\input{Model}
 
-\noindent \textbf{Event detection}: to identify key arguments in the sentence. And if a sentence contains \textbf{all} key arguments of a specific event type, it is considered to imply an event of the corresponding type. For example, in S1, \emph{Remedy Corp}, \emph{BMC Software}, and \emph{2004} should be identified as \emph{business.acquisition.company\_acquired}, \emph{business.acquisition.acquiring\_company}, and \emph{business.acquisition.date} respectively. As a result, S1 should be labeled as expressing an event about \emph{business.acquisition}.
-
-\noindent \textbf{Argument detection}: to identify other non-key arguments for each event in the sentence. For the \emph{business.acquisition} event in S1, \emph{Service Management Business Unit} should be identified as \emph{business.acquisition.divisions\_formed}.
-
-\subsection{Event Detection \label{evede}}
-Before presenting our model, we need to come up with the solution to multi-words arguments. Then we introduce the components in our LSTM-CRF-ILP$_{multi}$ model one-by-one from bottom to top.
-
-\paragraph{Tagging scheme}
-68 percent of arguments in our dataset consist of more than one words. To address this issue, we model each subtask as a sequence labeling task rather than a word classification task. Each word in the given sentence is tagged in the \texttt{BIO} scheme, where each token is labeled as \texttt{B-role} if it is the beginning of an event argument with its corresponding role \texttt{role}, or \texttt{I-role} if it is inside an argument, or \texttt{O} otherwise. 
-
-\paragraph{LSTM}
-Long Short-Term Memory Network (LSTM) \cite{hochreiter1997long} is a natural model for sequence labeling task, which maintains a memory based on historical contextual information. Formally, given a sentence $\bm{w} = \{w_1, w_2, \dots, w_n\}$ of length $n$, we use $\textbf{x}_t$ to represent feature vector (e.g. word embedding) corresponding to the $t$-th word $w_t$. At each time step $t$, a LSTM unit takes $\textbf{x}_t$ as input and computes the output vector $\textbf{h}_t$ through several multiplicative gates. Then output vector is fed into a softmax layer to estimate a probability distribution over all possible labels.
-
-\paragraph{CRF}
-A straightforward way is to choose the label which obtains maximum probability by LSTM as the prediction for each word. However, this independent labeling strategy is limited especially when there are strong dependencies and constraints between arguments.
-% For instance, \texttt{B-acquiring\_company} is more likely to be followed by \texttt{B-company\_acquired}, while \texttt{I-company\_acquired} is not allowed to follow \texttt{B-acquiring\_company}. 
-To model the correlations between labels, we introduce a CRF layer into the output of LSTM, which is widely used and proved to be effective in various sequence labeling tasks, such as POS tagging and NER \cite{collobert2011natural,huang2015bidirectional,lample2016neural}.
-
-We consider $\textbf{P}$ to be a matrix of confidence scores output by LSTM network, and the element $\textbf{P}_{i,j}$ of the matrix denotes the probability of the label $j$ for the $i$-th word in a sentence. The CRF layer has a transition score matrix $\textbf{A}$ as parameter, where $\textbf{A}_{i,j}$ represents the score of a transition from label $i$ to label $j$. The score of a sentence $\bm{w}$ along with a path of labels $\bm{y} = \{y_1, y_2, \ldots, y_n\}$ is measured by the sum of neural network outputs and transition scores: 
-\begin{equation}
-	score(\bm{w}, \bm{y}) = \sum\limits_{i=0}^n\textbf{P}_{i, y_i} + \sum\limits_{i=1}^n\textbf{A}_{y_i, y_{i+1}},
-\end{equation}
-During test, given a sentence $\bm{w}$, we adopt the Viterbi algorithm \cite{rabiner1989tutorial} to find the optimal label sequence with the maximum score among all possible label sequences.
-
-\paragraph{ILP-based Post Inference}
-Event detection is a structure prediction problem, while the output sequences of LSTM-CRF not necessarily satisfy the structural constraints. Specifically, regardless of how many key arguments are identified correctly by LSTM-CRF, if there is one key argument missing, detection of its corresponding event is failed. To amend this flaw, we apply Integer Linear Programming (ILP) with respect to the scores given by the above LSTM-CRF model to generate the final labeling sequence.
-Formally, let $\mathcal{L}$ be the set of possible argument labels. For each word $w_i$ in the sentence $\bm{w}$ and a pair of labels $ \langle l, l' \rangle \in \mathcal{L} \times \mathcal{L}$, we create a binary variable ${v_{i,l,l'} \in \{0, 1\}}$, denoting whether or not the $i$-th word $w_i$ is tagged as label $l$ and its following word $w_{i+1}$ is tagged as label $l'$ at the same time. The objective of ILP is to maximize the overall score of the variables,\begin{displaymath}
-	\sum\nolimits_{i, l, l'}v_{i,l,l'} * (\textbf{P}_{i,l}+\textbf{A}_{l,l'}) .
-\end{displaymath}
-
-We consider the following four constraints:
-
-\textbf{C1}: Each word should be and only be labeled with one label, i.e.:
-\begin{equation}
-	\sum\nolimits_{l,l'}v_{i,l,l'}=1
-\end{equation}
-
-\textbf{C2}: If the value of $v_{i,l,l'}$ is $1$, then there has to be a label $l^*$ which makes $v_{i+1,l',l^*}$ equal to $1$, i.e.:
-\begin{equation}
-	v_{i,l,l'} = \sum\nolimits_{l^*}v_{i+1,l',l^*}
-\end{equation}
-
-\textbf{C3}: If current label is \texttt{I-arg}, then its previous label must be \texttt{B-arg}, i.e.:
-\begin{equation}
-	v_{i,\texttt{I-arg},l'} = v_{i-1,\texttt{B-arg},\texttt{I-arg}}
-\end{equation}
-
-\textbf{C4}: For a specific event type, its key arguments should be co-occurred, or none of them should appear in the resulting sequence. For any pair of key arguments $arg_1$ and $arg_2$ with respect to the same event type, the variables related to them are subject to:
-\begin{equation}
-	\sum\nolimits_{i,l'}{v_{i,\texttt{B-arg}_1,l'}} \leq n * \sum\nolimits_{j,l^*}{v_{j,\texttt{B-arg}_2,l^*}}
-\end{equation}
-where $n$ is the length of the sentence.
-
-In order to address the multi-type event issue, we design a heuristic approach that iteratively produces new label sequences based on the following constraint \textbf{C5}.
-
-\textbf{C5}: We eliminate all resulting sequences solved by ILP in the past iterations from the solution space, to obtain the next optimal sequences, i.e., for a specific sequence produced at iteration $t$, $\bm{s}^t=\{l_1^t, l_2^t, \ldots, l_n^t\}$,  \begin{equation}	\forall i \in {[0, n)}, v_{i,l_i^t ,l_{i+1}^t} = 0	
-\end{equation}
-
-We repeat the above procedure with these constraints through ILP, until the difference between objective value of $\bm{s}^1$ and $\bm{s}^T$ is greater than a threshold $\lambda$. Finally, we consider all sequences $\{\bm{s}^1, \bm{s}^2, \ldots, \bm{s}^{T-1}\}$ as the optimized set of label sequences. In our experiment, Gurobi \cite{gurobi} is chosen as our ILP problem solver and $\lambda=0.05 \times n$.
-
-\subsection{Argument Detection}
-After event detection, a sentence will be classified into different event types, and labeled with its corresponding key arguments. Next step is argument detection which aims to identify the remaining arguments (non-key arguments) in the sentences.  
-
-We simply adapt the input embeddings of the LSTM-CRF model (see Section~\ref{evede}) for argument detection. Given an input sentence and one of its label sequence produced from upstream event detection task, we encode the label of each word into a key-argument feature vector through a look-up table. Then, we concatenate the word vector and key-argument feature vector as the input vector to LSTM. And no more post inference is needed in this subtask.
 \section{Experiments}
 
 \subsection{Experimental Setup}
