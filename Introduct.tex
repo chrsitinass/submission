@@ -1,5 +1,5 @@
 \section{Introduction}
-%Automatically extracting events from natural text is an outstanding challenging task in information extraction. 
+%Automatically extracting events from natural text is an outstanding challenging task in information extraction.
 Event extraction from text is an important, underpinning technique for many natural language processing tasks.
 Among diverse types of event extraction systems, the extraction task proposed by Automatic Content Extraction (ACE)
 \cite{doddington2004automatic} is the most popular framework, which defines two main terminologies: \textbf{trigger}
@@ -14,12 +14,12 @@ a portion of a word trigger an event, e.g., \textit{in prison} triggers an \emph
 \textit{ex-husband} triggers a \emph{divorce} event? Different annotators could give different answers event for the
 same sentence. What we would like to have is an automatic way to generate consistent training data, because manual labeling is
 expensive and
-the contradictory data can severely affect the performance of the ACE task.  
+the contradictory data can severely affect the performance of the ACE task.
 
 In addition to the challenge of training data generation, current ACE event extraction systems
 also have two major drawbacks -- they can only support single-token trigger labeling and have
 a one to one mapping from a type to an event. These restrictions make these ACE event extraction
-systems in applicable when. \FIXME{give an example.}
+systems in applicable when. \todo{give an example.}
 
 %Constructing high-quality training data for the ACE task is expensive, requiring heavy human involvement. This
 %typically consists of two steps. First, linguists are required to summarize a large amount of text to elaborately design
@@ -37,8 +37,6 @@ This paper addresses the two problems mentioned above. More specifically, we try
 (1) can we automatically build a dataset for event extraction without experts involved?
 and (2) can we have an event extractor that handles more realistic scenarios, e.g.,  when trigger annotations are unavailable, or events with more than one type.
 
- %automatic dataset construction and how to build an event extractor to handle situations where
-%trigger annotations are missing or one event is associated with more than one type.
 
 %It would be interesting to see (1) can we automatically build a dataset for event extraction without experts involved?
 %and (2) can we have an event extractor that handles more realistic scenarios, e.g.,  when trigger annotations are unavailable, or events with more than one type.
