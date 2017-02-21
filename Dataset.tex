@@ -1,7 +1,5 @@
 \section{Dataset Preparation}
-Here, we will employ the event-related entries in Freebase~\cite{bollacker2008freebase}  to automatically annotate \red{event descriptions} in Wikipedia's pages, with the essence of  \texttt{DS}. We regard a sentence as positive when it mentions the occurrence of an event, or otherwise negative. For example, S1 and S2 are positive examples with their arguments in italics and underlined (also shown in Figure~\ref{fig:3}), while S3 and S4 are negative. 
-%The event structures of S1 and S2 are illustrated in Figure~\ref{fig:3}.
-%
+Here, we will employ the event-related entries in Freebase~\cite{bollacker2008freebase} to automatically annotate event descriptions in Wikipedia's pages, with the essence of  \texttt{DS}. We regard a sentence as positive when it mentions the occurrence of an event, or otherwise negative. For example, S1 and S2 are positive examples with their arguments in italics and underlined (also shown in Figure~\ref{fig:3}), while S3 and S4 are negative.
 \begin{quote}
 	\textbf{S1}: \underline{\emph{Remedy Corp}} was sold to \underline{\emph{BMC Software}} as the \underline{\emph{Service Management Business Unit}} in \underline{\emph{2004}}.
 \end{quote}
@@ -16,9 +14,9 @@ Here, we will employ the event-related entries in Freebase~\cite{bollacker2008fr
 \end{quote}
 %
 \subsection{Freebase}
-Freebase is a structured knowledge base, which can be divided into three layers: \emph{domain}, \emph{type} and \emph{instance}. \emph{Instances} are entries in Freebase, and related to real-world entities\red{ and their relationship??}. \emph{Types} are different perspectives of \emph{instances}. \textbf{\emph{Compound Value Type}} (CVT) is a special type in Freebase to represent complex structured data where instances \red{ are described with} multiple \textbf{\emph{properties}}, usually organized in a table. Some of the CVT schemas indeed imply certain events, e.g., \red{\emph{divoice??sports related???} and \emph{business.acquisition}} , and  closely resemble to event structures, where CVT properties can be treated as event arguments. As shown  in Figure~\ref{fig:3},
-% \emph{business.acquisition} is a CVT whose properties are \emph{company\_acquired}, \emph{acquiring\_company}, \emph{date} and \emph{divisions\_formed}. 
-the properties of CVT  \emph{business.acquisition}  actually can be used to \red{lable/indicate}  %can be used to represent 
+Freebase is a structured knowledge base, and there are three basics concepts: \emph{instance}, \emph{type} and \emph{property}. \emph{Instances} are entries in Freebase, and related to real-world entities and their relationships. \emph{Types} are different perspectives of \emph{instances}. \textbf{\emph{Compound Value Type}} (CVT) is a special type in Freebase to represent complex structured data where instances are described with multiple \textbf{\emph{properties}}, usually organized in a table. Some of the CVT schemas indeed imply certain events, e.g., \emph{people.marriage}, \emph{military.military\_service} and \emph{business.acquisition}, and closely resemble to event structures, where CVT properties can be treated as event arguments. As shown in Figure~\ref{fig:3}, 
+
+the properties of CVT  \emph{business.acquisition}  actually can be used to label  %can be used to represent 
 the participants and attributes of the events mentioned in S1 and S2.
 
 We use the Freebase copy of 2013-06,  %version of Berant et al. \shortcite{berant2013semantic}, 
@@ -46,7 +44,7 @@ we thus consider S1 as a positive instance implying an event about \emph{busines
 
 \subsubsection{H2: Positive sentences should contain all key properties}
 In practice, we find that \emph{H1} is too strict to include many positive instances like S2. 
-We thus relax \emph{H1} by replacing \textbf{all properties} with \textbf{\red{all??????} key properties}. We define the CVT property that plays an important part in its CVT structure and helps to distinguish with other CVTs as a \textbf{key property}. A \textbf{key argument} is the word/phrase that matches a key property of a CVT instance. For example, \emph{company\_acquired} and \emph{acquiring\_company} are the key properties of CVT \emph{business.acquisition}, therefore,  S2 should be a positive instance for a \emph{business.acquisition} event, since it contains all key properties. Table~\ref{tab:5} lists the key properties of four CVTs.
+We thus relax \emph{H1} by replacing \textbf{all properties} with \textbf{all key properties}. We define the CVT property that plays an important part in its CVT structure and helps to distinguish with other CVTs as a \textbf{key property}. A \textbf{key argument} is the word/phrase that matches a key property of a CVT instance. For example, \emph{company\_acquired} and \emph{acquiring\_company} are the key properties of CVT \emph{business.acquisition}, therefore,  S2 should be a positive instance for a \emph{business.acquisition} event, since it contains all key properties. Table~\ref{tab:5} lists the key properties of four CVTs.
 
 The importance of a property $prop$ (e.g., \emph{date}) to its CVT $cvt$ (e.g., \emph{business.acquisition}) can be defined as:
 \begin{equation}
@@ -85,8 +83,8 @@ In our experiments, we set the maximum distance between two key arguments as 2.
 %Given the dependency parsing tree in Figure~\ref{fig:2}, S4 is negative because the distance between \emph{Prince Philip} and \emph{marriage} is 3.
 
 \begin{figure}
-	\includegraphics[width=.48\textwidth]{deppath}
-	\caption{An illustration of dependency parse tree of S4. \label{fig:2}}
+	\includegraphics[width=.48\textwidth]{deppath2}
+	\caption{An illustration of dependency tree of S4, which partially matches an entry of \emph{people.marriage}. \label{fig:2}}
 \end{figure}
 
 We conduct a series of manual evaluations on the quantity and quality of the 
