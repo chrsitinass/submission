@@ -102,12 +102,16 @@ This side effect indicates that \emph{H2} is inappropriate to be used as a soft 
 %our hypothesis \emph{H3} and \emph{H4} are feasible and it is an effective way to generate reliable data automatically.
 
 \subsection{Baselines}
-To investigate the effectiveness of our proposed model, we develop three baseline extraction systems for comparison, including traditional feature-based methods and neural network models. For neural network method, we train a long short-term memory network that takes word embeddings as the input, and simply learns a probability distribution over all possible labels. For feature-based methods, we apply Conditional Random Field \cite{lafferty2001conditional} and Maximum Entropy \cite{berger1996maximum} to explore a variety of elaborate features (lexical, syntactic, entity information features) modified from state-of-art feature-based ACE event extraction system \cite{li2013joint}. It is worth mentioning that during argument detection, we add the label of each word output by event detection as a supplementary feature.
-
-We derive these features using Stanford CoreNLP \cite{manning2014stanford}, and apply the implementation from the CRF++ toolkit \cite{kudo2005crf++} and Le Zhang \footnote{\url{https://github.com/lzhang10/maxent}} to train CRF and max entropy classifiers, respectively.
+%To investigate the effectiveness of our proposed model, 
+We compare our proposed models with three baseline extraction systems, including traditional feature-based methods and neural network models. For neural network method, we train an LSTM model that takes word embeddings as input, and simply learns a probability distribution over all possible labels. For feature-based methods, we apply Conditional Random Field \cite{lafferty2001conditional} and Maximum Entropy \cite{berger1996maximum} to explore a variety of elaborate features, such as lexical, syntactic and entity-related features, according to the state-of-art feature-based ACE event extraction system~\cite{li2013joint}. Note that during argument detection, we add the label of each word output by the event detection as a supplementary feature.
+We use Stanford CoreNLP \cite{manning2014stanford} for feature extraction, and utilize the CRF++ toolkit~\cite{kudo2005crf++} and Le Zhang's MaxEnt toolkit \footnote{\url{https://github.com/lzhang10/maxent}} to train the CRF and Max Entropy classifiers, respectively.
 
 \subsection{Automatic Evaluation}
-As we can summarize from Table~\ref{tab:1}, traditional feature-based models are inefficient in both event detection and argument detection. Some of features they utilized, such as dependency features, suffer much from the absence of trigger. Although they can achieve high precisions, they can only extract a limited number of events, resulting in low recalls. Neural-network-based methods performs much better than feature-based models, because they can make better use of word semantic features, especially, LSTM can capture longer range dependencies and richer contextual information instead of neighborly word features.
+As shown in Table~\ref{tab:1}, traditional feature-based models perform worst in both event detection and argument detection. 
+One of the main reasons is  the absence of  explicit event trigger annotations in our dataset, 
+which makes it impossible to include trigger-related features, e.g., trigger-related dependency features and positions of triggers. 
+Although traditional models can achieve higher precisions, they only extract a limited number of events, resulting in low recalls. Neural-network methods perform better than feature-based models, since they can make better use of word semantic features, especially, LSTM can capture longer range dependencies and richer contextual information, instead of neighboring word features.
+And the CRF component brings an averagely 4\% improvement in all metrics, and by adding the ILP-based post inference module, our full model, LSTM-CRF-ILP$_{multi}$, achieves the best performance among all models. 
 % Moreover, neural-network-based methods can avoid errors propagating from other NLP preprocessing tools like POS tagging and NER.
 
 \begin{table*}[!t]
@@ -174,13 +178,13 @@ Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances th
 \centering
 \begin{tabular}{|l|c|c|c|} \hline
 	Event type & P & R & F \\ \hline
-	olympics.medal\_honor\footnote{The full name is olympics.olympic\_medal\_honor in Freebase.}
+	olympics.medal\_honor%\footnote{The full name is olympics.olympic\_medal\_honor in Freebase.}
 	& $\downarrow$ 25.0\% & $\downarrow$ 5.0\% & $\downarrow$ 13.8\% \\ \hline
 	film.performance & $\downarrow$ 21.4\% & $\uparrow$ 3.1\% & $\downarrow$10.3\% \\ \hline
 	business.acquisition & $\rightarrow$ & $\downarrow$ 7.1\% & $\downarrow$ 5.4\% \\ \hline
-	tv.appearance\footnote{The full name is tv.regular\_tv\_appearance in Freebase.}
+	tv.appearance%\footnote{The full name is tv.regular\_tv\_appearance in Freebase.}
 	& $\downarrow$ 9.5\% & $\uparrow$ 3.0\% & $\downarrow$ 3.1\% \\ \hline
-	film.release\footnote{The full name is film.film\_regional\_release\_date in Freebase.}
+	film.release%\footnote{The full name is film.film\_regional\_release\_date in Freebase.}
 	& $\downarrow$ 7.7\% & $\uparrow$ 5.6\% & $\downarrow$ 0.55\% \\ \hline
 \end{tabular}
 \caption{Top 5 event types whose performances on event classification differ most from automatic evaluation. The model we evaluated is LSTM-CRF-ILP$_{multi}$ \label{tab:4}}
