@@ -20,10 +20,23 @@
 \makesavenoteenv{table}
 \usepackage{amsmath, bm}
 \usepackage{url}
+\usepackage{xcolor}
 \usepackage[english,american]{babel}
 
+
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}\PackageWarning{TODO:}{#1!}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\cyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\brown}[1]{\textcolor{brown}{#1}}
+\newcommand{\purple}[1]{\textcolor{purple}{#1}}
+\newcommand{\orange}[1]{\textcolor{orange}{#1}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
 % the following package is optional:
-%\usepackage{latexsym}
+%\usepackage{latexsym} 
 
 % Following comment is from ijcai97-submit.tex:
 % The preparation of these files was supported by Schlumberger Palo Alto
@@ -61,14 +74,15 @@
 
 \section{Experiments}
 \subsection{Experimental Setup}
-\textbf{Dataset and Evaluation Methodology}. We use the November 20th, 2016 English Wikipedia dump, and generate 7180 sentences, containing 7376 events and 25840 arguments as dataset. We then randomly select 4800 sentences for training and 1180 sentences as test set, and the rest 1200 sentences for validation. We conduct both automatic evaluation and manual evaluation in the experiments. We first manually evaluate the quality of our test set. Next, we regard the noisy generated data as gold standard and evaluate our model automatically. Finally, we manually evaluate a subset of events detected by our model and analysis the differences with results in automatic evaluation.
+%\textbf{Dataset and Evaluation Methodology}. 
+We use Freebase and the English Wikipedia dump of 2016-11-20, to construct our dataset, containing 7,180 sentences, containing 7,376 events and 25,840 arguments. We then randomly select 4,800 sentences for training and 1,180 sentences as test set, and the rest 1,200 sentences for validation. We conduct both automatic evaluation and manual evaluation in our experiments. We first manually evaluate the quality of our test set. And then, we regard the automatically generated data as gold standard and evaluate our model accordingly. Finally, we manually evaluate a subset of events detected by our model and analyze the differences with results of automatic evaluation.
 
-\noindent \textbf{Evaluation Measures}. We evaluated our models in terms of precision (P), recall (R), and F-measure (F) for each subtask. These performance metrics are computed according to the following standards of correctness: For event type classification, an event is correctly classified if its reference sentence contains all key arguments of this event type; For argument detection, an argument is correctly detected if its offsets, role, and related event type exactly match any reference argument within the same sentence; For event detection, an event is correctly detected if its type and all its key arguments match a reference event within the same sentence.
+\noindent \textbf{Evaluation Measures}. We evaluate our models in terms of precision (P), recall (R), and F-measure (F) for each subtask. These performance metrics are computed according to the following standards of correctness: For event type classification, an event is correctly classified if its reference sentence contains all key arguments of this event type. For argument detection, an argument is correctly detected if its offsets, role, and related event type exactly match the reference argument within the same sentence. For event detection, an event is correctly detected if its type and all its key arguments match a reference event within the same sentence.
 
-\noindent \textbf{Training}. All hyperparameters are tuned on the development set. In event detection, we set the size of word embedding to 200, the size of LSTM layer to 100. In argument detection, we use the same size of word embedding, while the size of LSTM layer is 150, and the size of key argument embedding is 50. Word embeddings are pretrained using skip-gram word2vec model \cite{mikolov2013distributed} over the whole Wikipedia dump and fine tuned during training. To mitigate overfitting, we apply a dropout rate of 0.5 on both the input and output layers.
+\noindent \textbf{Training}. All hyper-parameters are tuned on the development set. In event detection, we set the size of word embeddings to 200, the size of LSTM layer to 100. In argument detection, we use the same size of word embedding, while the size of LSTM layer is 150, and the size of key argument embedding is 50. Word embeddings are pre-trained using skip-gram word2vec~\cite{mikolov2013distributed} on English Wikipedia pages and fine tuned during training. To mitigate overfitting, we apply a dropout rate of 0.5 on both the input and output layers.
 
 \subsection{Dataset Evaluation}\label{sec:evalhypo}
-For comparison, we evaluate five datasets that utilize different hypotheses to generate positive sentences from Wikipedia. We randomly select 100 sentences in each dataset, and annotators are asked to determine whether these sentences imply events.
+To investigate the possibility of automatically constructing training data for event extraction, we evaluate five datasets that utilize different hypotheses to collect positive sentences from Wikipedia pages. We randomly select 100 sentences in each dataset, and annotators are asked to determine whether a sentence implies a given event.
 
 \begin{table}[h]
 \small
@@ -80,7 +94,7 @@ For comparison, we evaluate five datasets that utilize different hypotheses to g
 	Event type & 9 & 24 & 24 & 24 & 24 \\ \hline
 	Correct (\%) & 98 & 22 & 37 & 81 & 89 \\ \hline
 \end{tabular}
-\caption{Statistic of generated dataset with different hypotheses. Instances denotes the number of CVT instances that can be used for each hypothesis. Dataset is the number of generated sentences. Event type indicates the number of different CVT types in each dataset. Correct represents the percentage of sentences which account as stating events explicitly. \label{tab:3}}
+\caption{Statistic of the datasets built with different hypotheses. \textit{Instances} denotes the number of CVT instances that can be used for each hypothesis.  \textit{Dataset} is the number of sentences found.  \textit{Event type} indicates the number of different CVT types in each dataset.  \textit{Correct} is the percentage of sentences mentioning the given events explicitly. \label{tab:3}}
 \end{table}
 
 As shown in Table~\ref{tab:3}, the strictest hypothesis, \emph{H1}, guarantees the quality and confidence of generated data, while we can merely obtain 203 sentences and cover 9 types of events,  which is quite insufficient for further training. \emph{H2} is looser than \emph{H1}, though expands the resulting dataset, it produces a large number of noisy sentences. This side effect demonstrates that \emph{H2} is inappropriate to be used as a soft constraint. Compared with \emph{H2}, the significant improvement in the quality of sentences generated by \emph{H3} proves that CVT properties referring time information are critical to data generation. Among all hypotheses, finally, data obtained by a combination of \emph{H3} and \emph{H4} achieves highest precision, which demonstrates that our hypothesis \emph{H3} and \emph{H4} are feasible and it is an effective way to generate reliable data automatically.
@@ -158,16 +172,13 @@ Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances th
 \centering
 \begin{tabular}{|l|c|c|c|} \hline
 	Event type & P & R & F \\ \hline
-	olympics.medal\_honor
-	 \footnote{The full name is olympics.olympic\_medal\_honor in Freebase.}
+	olympics.medal\_honor\footnote{The full name is olympics.olympic\_medal\_honor in Freebase.}
 	& $\downarrow$ 25.0\% & $\downarrow$ 5.0\% & $\downarrow$ 13.8\% \\ \hline
 	film.performance & $\downarrow$ 21.4\% & $\uparrow$ 3.1\% & $\downarrow$10.3\% \\ \hline
 	business.acquisition & $\rightarrow$ & $\downarrow$ 7.1\% & $\downarrow$ 5.4\% \\ \hline
-	tv.appearance
-	 \footnote{The full name is tv.regular\_tv\_appearance in Freebase.}
+	tv.appearance\footnote{The full name is tv.regular\_tv\_appearance in Freebase.}
 	& $\downarrow$ 9.5\% & $\uparrow$ 3.0\% & $\downarrow$ 3.1\% \\ \hline
-	film.release
-	 \footnote{The full name is film.film\_regional\_release\_date in Freebase.}
+	film.release\footnote{The full name is film.film\_regional\_release\_date in Freebase.}
 	& $\downarrow$ 7.7\% & $\uparrow$ 5.6\% & $\downarrow$ 0.55\% \\ \hline
 \end{tabular}
 \caption{Top 5 event types whose performances on event classification differ most from automatic evaluation. The model we evaluated is LSTM-CRF-ILP$_{multi}$ \label{tab:4}}
