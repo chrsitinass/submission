@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.19)  21 FEB 2017 19:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.19)  21 FEB 2017 20:05
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -293,48 +293,24 @@ LaTeX Warning: No \author given.
 
 (./abstract.tex) (./Introduct.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 5.
-
-
-Package TODO: Warning: give an example.! on input line 22.
-
-
-Package TODO: Warning: what about the structure problem?! on input line 53.
-
-
-Package TODO: Warning: high quality training data for event extraction?! on input line 55.
-
-[1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-
-
-
-]
-
-Package TODO: Warning: [! on input line 96.
-
-./Introduct.tex:96: Too many }'s.
-l.96 We apply our approach to \todo[xx}
-                                       . Evaluation results show that \todo{...
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
-
-
-Package TODO: Warning: xx! on input line 96.
-
-) (./Dataset.tex
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 2.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 18.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
+)) [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+
+
+] (./Dataset.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 16.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 17.
- <temp.png, id=13, 722.7pt x 451.6875pt>
+ <temp.png, id=14, 722.7pt x 451.6875pt>
 File: temp.png Graphic file (type png)
  <use temp.png>
 Package pdftex.def Info: temp.png used on input line 28.
-(pdftex.def)             Requested size: 242.82503pt x 151.76596pt.
+(pdftex.def)             Requested size: 227.64894pt x 142.2823pt.
 
 Underfull \hbox (badness 2359) in paragraph at lines 29--29
 \OT1/ptm/m/it/10 quir-ing[]company \OT1/ptm/m/n/10 and \OT1/ptm/m/it/10 date \OT1/ptm/m/n/10 are key ar-gu-ments in \OT1/ptm/m/it/10 busi-
@@ -343,12 +319,12 @@ Underfull \hbox (badness 2359) in paragraph at lines 29--29
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[2 <./temp.png>]
+
 Underfull \hbox (badness 1394) in paragraph at lines 70--75
 \OT1/ptm/m/n/10 cur-rently im-per-fect KBs, time-related prop-er-ties are in-
  []
 
-<deppath.png, id=22, 903.375pt x 242.9075pt>
+[2 <./temp.png>] <deppath.png, id=22, 903.375pt x 242.9075pt>
 File: deppath.png Graphic file (type png)
  <use deppath.png>
 Package pdftex.def Info: deppath.png used on input line 86.
@@ -360,7 +336,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 23--24
 
 [3 <./deppath.png>]) [4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 121.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 125.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -368,9 +344,12 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <example.png, id=36, 697.60625pt x 350.30875pt>
 File: example.png Graphic file (type png)
  <use example.png>
-Package pdftex.def Info: example.png used on input line 162.
+Package pdftex.def Info: example.png used on input line 166.
 (pdftex.def)             Requested size: 242.82503pt x 121.93639pt.
- [5 <./example.png>] (./related.tex) [6] (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.bbl
+ [5 <./example.png>] (./related.tex) (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.bbl
+Underfull \vbox (badness 2644) has occurred while \output is active []
+
+ [6]
 Underfull \hbox (badness 10000) in paragraph at lines 18--22
 []\OT1/ptm/m/n/10 Kurt Bol-lacker, Colin Evans,
  []
@@ -433,9 +412,9 @@ Here is how much of TeX's memory you used:
  6960 multiletter control sequences out of 15000+600000
  37698 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,11n,35p,866b,248s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,11n,35p,895b,250s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.pdf (7 pages, 540400 bytes).
+Output written on /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.pdf (7 pages, 540193 bytes).
 PDF statistics:
  112 PDF objects out of 1000 (max. 8388607)
  77 compressed objects within 1 object stream

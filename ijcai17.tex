@@ -131,10 +131,10 @@ And the CRF component brings an averagely 4\% improvement in all metrics, and by
 \caption{Overall system performance of automatic evaluations. (\%) \label{tab:1}}
 \end{table*}
 
-\vspace{1em}
+%\vspace{1em}
 \noindent \textbf{Effect of CRF Layer}. Every model which has a CRF layer over its LSTM output layer is superior to the one with a simple LSTM layer. Compared with LSTM model, LSTM-CRF achieves higher precisions and recalls in all subtasks by significantly reducing the invalid labeling sequences (e.g., \texttt{I-arg} appears right after \texttt{O}). During prediction, instead of tagging each token independently, LSTM-CRF takes into account the constraints between neighbor labels, and increases the cooccurrences of key arguments with regard to the same event type in some way.
 
-\vspace{1em}
+%\vspace{1em}
 \noindent \textbf{Effect of Post Inference}. As shown in Table~\ref{tab:1}, post inference based on ILP considerably improve the overall system performance, especially in event classification. With the help of constraint \textbf{C4},  some dubious key arguments can be inferred through other key arguments from their contexts. Compared with LSTM-CRF, LSTM-CRF-ILP$_1$ produces a gain of 7.4 in event classification, 1.8 in event detection, and 4.6 in argument detection, with respect to the F1. We further investigate the effect of LSTM-CRF-ILP$_{multi}$.  
 % which deals with the multi-type event mention issue. 
 Evaluated on the sentences containing multi-type event mentions, the F1 scores of LSTM-CRF-ILP$_{multi}$ in event classification, argument detection and event detection are 70.7\%, 26.9\% and 58.4\%, respectively. 
@@ -167,11 +167,11 @@ Table~\ref{tab:2} presents the average F1 score of manual evaluations. We can dr
 	\caption{Example outputs of LSTM-CRF-ILP$_{multi}$.\label{fig:1}}
 \end{figure}
 
-Moreover, manual evaluation helps us to gain a deep insight of our data and models. We further conduct automatic evaluation on the manual annotated dataset and list the top 5 event types whose F1 scores of LSTM-CRF-ILP$_{multi}$ differ greatly from automatic evaluation in Table~\ref{tab:4}.
+Moreover, manual evaluation helps us to gain a deep insight of our data and models. We further conduct automatic evaluation on the manually annotated dataset and list the top 5 event types whose F1 scores of LSTM-CRF-ILP$_{multi}$ differ greatly from automatic evaluation in Table~\ref{tab:4}.
 
-Most of the performance differences are caused by the stage of data generation. Figure~\ref{fig:1} examples two types of errors in data generation. Some of the sentences automatic generated test set are noisy, in other words, they do not imply any event while still match all key properties of certain instances. Take S5 as an example, though the phrases \emph{the car} matches a film name, it does not indicate this film, and there is no explicit evidence expressing that an actor starring in a film. This is a bottleneck of our data generation strategy. During manual evaluation, we find 16 negative sentences which are mistakenly labeled due to this reason. Unfortunately, our model fails to rectify 10 of them.
+Most of the performance differences are caused by data generation. Figure~\ref{fig:1} examples two types of errors in data generation. Some automatically labeled sentences do not imply any event while still matching all key properties of certain instances. Take S5 as an example. Although the phrase \emph{the car} matches a film name, it does not indicate this film, and there is no explicit evidence expressing that an actor starring in a film. This is a bottleneck of our data generation strategy. During manual evaluation, we find 16 negative sentences which are mistakenly labeled due to this reason. Unfortunately, our model fails to rectify 10 of them.
 
-Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances that not referenced in Freebase. There are two events mentioned in S6, while the arguments of the second event do not match any CVT instances in Freebase, leading to an omitting event in data generation. This phenomenon suggests that learning from distant supervision provided by Freebase, our model can help complete and update properties of Freebase instances in return.
+Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances that are not referenced in Freebase. There are two events mentioned in S6, while the arguments of the second event do not match any CVT instances in Freebase, leading to a missing event in data generation. This phenomenon suggests that learning from distant supervision provided by Freebase, our model can help complete and update properties of Freebase instances in return.
 
 \begin{table}[h]
 \small
