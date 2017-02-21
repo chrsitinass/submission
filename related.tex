@@ -17,7 +17,7 @@ In contrast, we propose to exploit existing structured knowledge bases, e.g., Fr
 types of events as well as their corresponding argument settings, without expert annotation, and further automatically
 construct training data, with the essence of distant supervision~\cite{mintz2009distant}.
 
-Distant supervision~(\texttt{DS}) has been widely used  binary relation extraction, where the key assumption is that 
+Distant supervision~(\texttt{DS}) has been widely used in binary relation extraction, where the key assumption is that 
  sentences containing both the subject and object of a $<$$subj$, $rel$, $obj$$>$ triple can be seen as its support, and further
 used to train a classifier to identify the relation $rel$. However,  this assumption does not fit to our event extraction scenario, 
 where an event usually involves several arguments and it is hard to collect enough training sentences with all arguments appearing in, as indicated by the low coverage of \textbf{H1}. We therefore investigate different hypotheses  for event extraction within the \texttt{DS} paradigm and propose to utilize time and syntactic clues to refine the \texttt{DS} assumption for better data quality. We further relieve the reliance on event trigger annotations by previous event extractors, and define a novel event extraction paradigm with key arguments to characterize an event type. 
