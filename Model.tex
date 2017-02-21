@@ -1,42 +1,59 @@
-\section{Model}
-Unlike existing event extraction work in which triggers are the key clues to identify event and classify different event types, in the absence of human-labeled triggers, we argue that \textbf{key arguments} can play the same role as triggers. Consequently, we can treat event extraction as a pipeline of two primary subtasks, namely event detection and argument detection. 
+\section{Our Approach}
+Existing works in event extraction rely on explicit trigger identification to detect the occurrence of an event, 
+which is crucial to later decide its event type and label its arguments.
+%   classify different event types,
+In our automatically collected dataset, which human-labeled event triggers are unavailable, we argue that 
+\textbf{key arguments} can play the same role as explicit event triggers. We thus treat the event extraction as a pipeline of two subtasks, namely, event detection and argument detection. 
 
-\textbf{Event detection} aims to identify key arguments in the sentence. And if a sentence contains \textbf{all} key arguments of a specific event type, it is considered to imply an event of the corresponding type. Take S1 as an example, \emph{Remedy Corp}, \emph{BMC Software}, and \emph{2004} should be identified as \emph{company\_acquired}, \emph{acquiring\_company}, and \emph{date}, respectively. As a result, S1 should be labeled as expressing an event about \emph{business.acquisition}. 
+\textbf{Event detection} aims to identify key arguments in a sentence. If a sentence contains \textbf{all} key arguments of a specific event type, it will be considered to imply an event of the corresponding type. Take S1 as an example, \emph{Remedy Corp}, \emph{BMC Software}, and \emph{2004} could be identified as \emph{company\_acquired}, \emph{acquiring\_company}, and \emph{date}, respectively,  indicating that  S1 may  mention  a  \emph{business.acquisition} event.  
 
 \textbf{Argument detection} aims to identify other non-key arguments for each event in the sentence. For the \emph{business.acquisition} event in S1, \emph{Service Management Business Unit} should be identified as \emph{divisions\_formed}.
 
 \subsection{Event Detection \label{evede}}
-Before presenting our model, we need to propose the solution to multi-words arguments. Then we introduce the components in our LSTM-CRF-ILP$_{multi}$ model one-by-one from bottom to top.
+%Before presenting our model, 
+Next, we first present our solution for multi-words arguments, and then introduce each component in our model.
+%LSTM-CRF-ILP$_{multi}$ model, from bottom to top.
 
+\vspace{-.8em}
 \paragraph{Tagging scheme}
-68 percent of the arguments in our dataset consist of more than one words. To address this issue, we model each subtask as a sequence labeling task rather than a word classification task. Each word in the given sentence is tagged in the \texttt{BIO} scheme, where each token is labeled as \texttt{B-role} if it is the beginning of an event argument with its corresponding role \texttt{role}, or \texttt{I-role} if it is inside an argument, or \texttt{O} otherwise. 
+There 68\%  of  arguments in our dataset consisting of more than one word. To address this issue, we model each subtask in a sequence labeling paradigm rather than word-level classifications. Each word in the given sentence is tagged with the \texttt{BIO} scheme, where each token is labeled as \texttt{B-role} if it is the beginning of an event argument with its corresponding role \texttt{role}, or \texttt{I-role} if it is inside an argument, or \texttt{O} otherwise. 
 
+\vspace{-.7em}
 \paragraph{LSTM}
-Long Short-Term Memory Network (LSTM) \cite{hochreiter1997long} is a natural fit for sequence labeling task, which maintains a memory based on historical contextual information. Formally, given a sentence $\bm{w} = \{w_1, w_2, \dots, w_n\}$ of length $n$, we use $\textbf{x}_t$ to represent feature vector (e.g. word embedding) corresponding to the $t$-th word $w_t$. At each time step $t$, a LSTM unit takes $\textbf{x}_t$ as input and computes the output vector $\textbf{h}_t$ through several multiplicative gates. Then this output vector is fed into a softmax layer to estimate a probability distribution over all possible labels.
+Long Short-Term Memory Network (LSTM)~\cite{hochreiter1997long} is a natural fit for sequence labeling, which maintains a memory based on historical contextual information. Formally, given a sentence $\bm{w} = \{w_1, w_2, \dots, w_n\}$ of length $n$, we use $\textbf{x}_t$ to represent feature vector, e.g., word embeddings, corresponding to the $t$-th word $w_t$. At each time step $t$, an LSTM unit takes $\textbf{x}_t$ as input and computes the output vector $\textbf{h}_t$ through several multiplicative gates. The output vector is fed into a softmax layer to estimate a probability distribution over all possible labels.
 
+\vspace{-.8em}
 \paragraph{CRF}
-A straightforward way is to choose the label which obtains maximum probability by LSTM as the prediction for each word. However, this independent labeling strategy is limited especially when there are strong dependencies and constraints between labels. To model the correlations between labels, we introduce a CRF layer into the output of LSTM, which is widely used and effective in various sequence labeling tasks, such as POS tagging and NER \cite{collobert2011natural,huang2015bidirectional}.
+A straightforward way to find the label sequence for given sentence is to choose the 
+best label for each word individually according to LSTM output.  
+%with maximum probability by LSTM as the prediction for each word. 
+However, this greedy strategy ignores the dependencies between labels, thus can not guarantee the best sequence.  %this independent labeling strategy 
+%is limited especially when there are strong dependencies and constraints between labels. 
+%To model the correlations between labels, 
+Therefore, we introduce a CRF layer over the LSTM output, which is admittedly effective in various sequence labeling tasks~\cite{collobert2011natural,huang2015bidirectional}. %, such as POS tagging and NER .
 
-We consider $\textbf{P}$ to be a matrix of confidence scores output by LSTM network, and the element $\textbf{P}_{i,j}$ of the matrix denotes the probability of the label $j$ for the $i$-th word in a sentence. The CRF layer has a transition score matrix $\textbf{A}$ as parameter, where $\textbf{A}_{i,j}$ represents the score of a transition from label $i$ to label $j$. The score of a sentence $\bm{w}$ along with a path of labels $\bm{y} = \{y_1, y_2, \ldots, y_n\}$ is measured by the sum of neural network outputs and transition scores: 
+We consider $\textbf{P}$ to be a matrix of confidence scores output by LSTM, and the element $\textbf{P}_{i,j}$ of the matrix denotes the probability of the label $j$ for the $i$-th word in a sentence. The CRF layer takes a transition matrix $\textbf{A}$ as parameter, where $\textbf{A}_{i,j}$ represents the score of a transition from label $i$ to label $j$. The score of a sentence $\bm{w}$ along with a path of labels $\bm{y} = \{y_1, y_2, \ldots, y_n\}$ is measured by the sum of LSTM outputs and transition scores: 
 \begin{equation}
 	score(\bm{w}, \bm{y}) = \sum\limits_{i=0}^n\textbf{P}_{i, y_i} + \sum\limits_{i=1}^n\textbf{A}_{y_i, y_{i+1}},
 \end{equation}
-During test, given a sentence $\bm{w}$, we adopt the Viterbi algorithm \cite{rabiner1989tutorial} to find the optimal label sequence with the maximum score among all possible label sequences.
+During test, given a sentence $\bm{w}$, we adopt the Viterbi algorithm~\cite{rabiner1989tutorial} to find the optimal label sequence with the maximum score among all possible label sequences.
 
+\vspace{-.8em}
 \paragraph{ILP-based Post Inference}
-Event detection is a structure prediction problem, while the output sequences of LSTM-CRF not necessarily satisfy the structural constraints. Specifically, regardless of how many key arguments are identified correctly by LSTM-CRF, if there is one key argument missing, detection of its corresponding event is failed. To amend this flaw, we apply Integer Linear Programming (ILP) with respect to the scores given by the above LSTM-CRF model to generate the final labeling sequence.
-Formally, let $\mathcal{L}$ be the set of possible argument labels. For each word $w_i$ in the sentence $\bm{w}$ and a pair of labels $ \langle l, l' \rangle \in \mathcal{L} \times \mathcal{L}$, we create a binary variable ${v_{i,l,l'} \in \{0, 1\}}$, denoting whether or not the $i$-th word $w_i$ is tagged as label $l$ and its following word $w_{i+1}$ is tagged as label $l'$ at the same time. The objective of ILP is to maximize the overall score of the variables,\begin{displaymath}
+Basically, event detection is a structure prediction problem, while the output sequences of LSTM-CRF do not necessarily satisfy the structural constraints. For instance, regardless of how many key arguments are correctly identified by LSTM-CRF, if there is one key argument missing, this detection should be considered as failed. 
+
+We thus propose to apply Integer Linear Programming (ILP) to further globally optimize the LSTM-CRF output  to produce the best label sequence.
+Formally, let $\mathcal{L}$ be the set of possible argument labels. For each word $w_i$ in the sentence $\bm{w}$ and a pair of labels $ \langle l, l' \rangle \in \mathcal{L} \times \mathcal{L}$, we create a binary variable ${v_{i,l,l'} \in \{0, 1\}}$, denoting whether or not the $i$-th word $w_i$ is tagged as label $l$ and its following word $w_{i+1}$ is tagged as label $l'$ at the same time. The objective of ILP is to maximize the overall score of the variables as:\begin{displaymath}
 	\sum\nolimits_{i, l, l'}v_{i,l,l'} * (\textbf{P}_{i,l}+\textbf{A}_{l,l'}) .
 \end{displaymath}
+where we consider the following four constraints:
 
-We consider the following four constraints:
-
-\textbf{C1}: Each word should be and only be labeled with one label, i.e.:
+\textbf{C1}: Each word should be and only be annotated with one label, i.e.:
 \begin{equation}
 	\sum\nolimits_{l,l'}v_{i,l,l'}=1
 \end{equation}
 
-\textbf{C2}: If the value of $v_{i,l,l'}$ is $1$, then there has to be a label $l^*$ which makes $v_{i+1,l',l^*}$ equal to $1$, i.e.:
+\textbf{C2}: If the value of $v_{i,l,l'}$ is $1$, then there has to be a label $l^*$ that will make $v_{i+1,l',l^*}$ equal to $1$, i.e.:
 \begin{equation}
 	v_{i,l,l'} = \sum\nolimits_{l^*}v_{i+1,l',l^*}
 \end{equation}
@@ -46,15 +63,21 @@ We consider the following four constraints:
 	v_{i,\texttt{I-arg},l'} = v_{i-1,\texttt{B-arg},\texttt{I-arg}}
 \end{equation}
 
-\textbf{C4}: For a specific event type, its key arguments should co-occurre, or none of them should appear in the resulting sequence. For any pair of key arguments $arg_1$ and $arg_2$ with respect to the same event type, the variables related to them are subject to:
+\textbf{C4}: For a specific event type, all its key arguments should co-occur in the sentence, or none of them appears in the resulting sequence. For any pair of key arguments $arg_1$ and $arg_2$ with respect to the same event type, the variables related to them are subject to:
 \begin{equation}
 	\sum\nolimits_{i,l'}{v_{i,\texttt{B-arg}_1,l'}} \leq n * \sum\nolimits_{j,l^*}{v_{j,\texttt{B-arg}_2,l^*}}
 \end{equation}
 where $n$ is the length of the sentence.
 
-In order to address the multi-type event mention issue, we allow ILP solver to output multiple sequences iteratively. Formally, let $\bm{s}^t=\{l_1^t, l_2^t, \ldots, l_n^t\}$ be the sequence produced at iteration $t$. During each iteration $t$, we eliminate $\{\bm{s}^1, \ldots, \bm{s}^{t-1}\}$ from the solution space to obtain the next optimal sequences $\bm{s}^t$. We repeat the above procedure with these constraints through ILP, until the difference between objective value of $\bm{s}^1$ and $\bm{s}^T$ is greater than a threshold $\lambda$, and consider all sequences $\{\bm{s}^1, \bm{s}^2, \ldots, \bm{s}^{T-1}\}$ as the optimized set of label sequences. In our experiment, Gurobi \cite{gurobi} is chosen as our ILP problem solver and $\lambda=0.05 \times n$.
+In order to address the multi-type event mention issue, we allow our ILP solver to output multiple optimal sequences. 
+Specifically, after our model outputs the best sequence $\bm{s}^t$ at time  $t$, we remove the previously best solutions 
+%Formally, let $\bm{s}^t=\{l_1^t, l_2^t, \ldots, l_n^t\}$ be the sequence produced at iteration $t$. During each iteration $t$, 
+ $\{\bm{s}^1, \ldots, \bm{s}^{t}\}$ from the solution space, and re-run our solver to obtain the next optimal sequences $\bm{s}^{t+1}$. 
+We repeat the optimization procedure until the difference between the scores of $\bm{s}^1$ and $\bm{s}^T$ is greater 
+than a threshold $\lambda$, and consider all solutions $\{\bm{s}^1, \bm{s}^2, \ldots, \bm{s}^{T-1}\}$ as the optimal label sequences. 
+We use Gurobi~\cite{gurobi} as our ILP solver and set $\lambda=0.05 \times n$, which averagely produce~1.04 optimal sequences for each sentence. 
 
 \subsection{Argument Detection}
-After event detection, a sentence will be classified into different event types, and labeled with its corresponding key arguments. Next step is argument detection which aims to identify the remaining arguments (non-key arguments) in the sentences.  
+After event detection, a sentence will be classified into different event types, and labeled with its corresponding key arguments. The next step is argument detection, which aims to identify the remaining non-key arguments in the sentence.  
 
-We simply adapt the same architecture as the LSTM-CRF model (see Section~\ref{evede}) for argument detection, where we encode the label (output of event detection) of each word into a key-argument feature vector througth a look-up table, and concatenate it with the origin word embedding as the input vector to LSTM. We do not need post inference in this task.
+We adopt the same LSTM-CRF architecture (in Sec~\ref{evede}) for argument detection, where we encode the event label (output of event detection) of each word into a key-argument feature vector through a look-up table, and concatenate it with the original word embedding as the input to the new LSTM-CRF. Note that we do not need post inference here.
