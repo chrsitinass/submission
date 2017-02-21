@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.19)  21 FEB 2017 19:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.19)  21 FEB 2017 19:33
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -298,19 +298,39 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 
 Package TODO: Warning: give an example.! on input line 22.
 
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 51.
-(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+
+Package TODO: Warning: what about the structure problem?! on input line 53.
+
+
+Package TODO: Warning: high quality training data for event extraction?! on input line 55.
+
+[1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+
+
+]
+
+Package TODO: Warning: [! on input line 96.
+
+./Introduct.tex:96: Too many }'s.
+l.96 We apply our approach to \todo[xx}
+                                       . Evaluation results show that \todo{...
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+
+Package TODO: Warning: xx! on input line 96.
+
+) (./Dataset.tex
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 2.
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-
-
-
-]) (./Dataset.tex
+)
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 16.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 17.
- <temp.png, id=14, 722.7pt x 451.6875pt>
+ <temp.png, id=13, 722.7pt x 451.6875pt>
 File: temp.png Graphic file (type png)
  <use temp.png>
 Package pdftex.def Info: temp.png used on input line 28.
@@ -319,6 +339,9 @@ Package pdftex.def Info: temp.png used on input line 28.
 Underfull \hbox (badness 2359) in paragraph at lines 29--29
 \OT1/ptm/m/it/10 quir-ing[]company \OT1/ptm/m/n/10 and \OT1/ptm/m/it/10 date \OT1/ptm/m/n/10 are key ar-gu-ments in \OT1/ptm/m/it/10 busi-
  []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [2 <./temp.png>]
 Underfull \hbox (badness 1394) in paragraph at lines 70--75
@@ -335,11 +358,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 23--24
  \OT1/ptm/b/n/10 LSTM[] \OT1/ptm/m/n/10 Long Short-Term Mem-ory Net-work
  []
 
-[3 <./deppath.png>])
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[4]
+[3 <./deppath.png>]) [4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 121.
 
@@ -351,18 +370,7 @@ File: example.png Graphic file (type png)
  <use example.png>
 Package pdftex.def Info: example.png used on input line 162.
 (pdftex.def)             Requested size: 242.82503pt x 121.93639pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-(./related.tex)
-Underfull \vbox (badness 2512) has occurred while \output is active []
-
- [6 <./example.png>] (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.bbl
+ [5 <./example.png>] (./related.tex) [6] (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 18--22
 []\OT1/ptm/m/n/10 Kurt Bol-lacker, Colin Evans,
  []
@@ -417,22 +425,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 155--161
 []\OT1/ptm/m/n/10 Zhiyi Song, Ann Bies, Stephanie
  []
 
-[7]) [8
-
-] (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.aux) ) 
+) [7] (/Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.aux) ) 
 Here is how much of TeX's memory you used:
  3596 strings out of 493089
  47978 string characters out of 6134842
- 142657 words of memory out of 5000000
+ 141657 words of memory out of 5000000
  6960 multiletter control sequences out of 15000+600000
  37698 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,11n,35p,866b,248s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.pdf (8 pages, 540827 bytes).
+Output written on /Users/christina/Downloads/FormattingGuidelinesIJCAI-17/.texpadtmp/ijcai17.pdf (7 pages, 540400 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
- 79 compressed objects within 1 object stream
+ 112 PDF objects out of 1000 (max. 8388607)
+ 77 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
