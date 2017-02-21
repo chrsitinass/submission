@@ -20,10 +20,10 @@
 \makesavenoteenv{table}
 \usepackage{amsmath, bm}
 \usepackage{url}
-
+\usepackage[english,american]{babel}
 
 % the following package is optional:
-%\usepackage{latexsym} 
+%\usepackage{latexsym}
 
 % Following comment is from ijcai97-submit.tex:
 % The preparation of these files was supported by Schlumberger Palo Alto
@@ -65,10 +65,10 @@
 
 \noindent \textbf{Evaluation Measures}. We evaluated our models in terms of precision (P), recall (R), and F-measure (F) for each subtask. These performance metrics are computed according to the following standards of correctness: For event type classification, an event is correctly classified if its reference sentence contains all key arguments of this event type; For argument detection, an argument is correctly detected if its offsets, role, and related event type exactly match any reference argument within the same sentence; For event detection, an event is correctly detected if its type and all its key arguments match a reference event within the same sentence.
 
-\noindent \textbf{Training}. All hyperparameters are tuned on the development set. In event detection, we set the size of word embedding to 200, the size of LSTM layer to 100. In argument detection, we use the same size of word embedding, while the size of LSTM layer is 150, and the size of key argument embedding is 50. Word embeddings are pretrained using skip-gram word2vec model \cite{mikolov2013distributed} over the whole Wikipedia dump and fine tuned during training. To mitigate overfitting, we apply a dropout rate of 0.5 on both the input and output layers. 
+\noindent \textbf{Training}. All hyperparameters are tuned on the development set. In event detection, we set the size of word embedding to 200, the size of LSTM layer to 100. In argument detection, we use the same size of word embedding, while the size of LSTM layer is 150, and the size of key argument embedding is 50. Word embeddings are pretrained using skip-gram word2vec model \cite{mikolov2013distributed} over the whole Wikipedia dump and fine tuned during training. To mitigate overfitting, we apply a dropout rate of 0.5 on both the input and output layers.
 
 \subsection{Dataset Evaluation}\label{sec:evalhypo}
-For comparison, we evaluate five datasets that utilize different hypotheses to generate positive sentences from Wikipedia. We randomly select 100 sentences in each dataset, and annotators are asked to determine whether these sentences imply events. 
+For comparison, we evaluate five datasets that utilize different hypotheses to generate positive sentences from Wikipedia. We randomly select 100 sentences in each dataset, and annotators are asked to determine whether these sentences imply events.
 
 \begin{table}[h]
 \small
@@ -91,14 +91,14 @@ To investigate the effectiveness of our proposed model, we develop three baselin
 We derive these features using Stanford CoreNLP \cite{manning2014stanford}, and apply the implementation from the CRF++ toolkit \cite{kudo2005crf++} and Le Zhang \footnote{\url{https://github.com/lzhang10/maxent}} to train CRF and max entropy classifiers, respectively.
 
 \subsection{Automatic Evaluations}
-As we can summarize from Table~\ref{tab:1}, traditional feature-based models are inefficient in both event detection and argument detection. Some of features they utilized, such as dependency features, suffer much from the absence of trigger. Although they can achieve high precisions, they can only extract a limited number of events, resulting in low recalls. Neural-network-based methods performs much better than feature-based models, because they can make better use of word semantic features, especially, LSTM can capture longer range dependencies and richer contextual information instead of neighborly word features. 
+As we can summarize from Table~\ref{tab:1}, traditional feature-based models are inefficient in both event detection and argument detection. Some of features they utilized, such as dependency features, suffer much from the absence of trigger. Although they can achieve high precisions, they can only extract a limited number of events, resulting in low recalls. Neural-network-based methods performs much better than feature-based models, because they can make better use of word semantic features, especially, LSTM can capture longer range dependencies and richer contextual information instead of neighborly word features.
 % Moreover, neural-network-based methods can avoid errors propagating from other NLP preprocessing tools like POS tagging and NER.
 
 \begin{table*}[!t]
 \centering
 \small
 \begin{tabular}{|l|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|p{0.8cm}<{\centering}|} \hline
-	\multirow{2}{*}{Model} & \multicolumn{3}{c|}{Event Classification} & \multicolumn{3}{c|}{Argument Detection} & 
+	\multirow{2}{*}{Model} & \multicolumn{3}{c|}{Event Classification} & \multicolumn{3}{c|}{Argument Detection} &
 	\multicolumn{3}{c|}{Event Detection} \\ \cline{2-10}
 	 & P & R & F & P & R & F & P & R & F \\ \hline
 	CRF & 96.8 & 9.93 & 18.0 & 64.8 & 6.54 & 11.9 & 29.8 & 3.06 & 5.55 \\ \hline
@@ -115,7 +115,8 @@ As we can summarize from Table~\ref{tab:1}, traditional feature-based models are
 \noindent \textbf{Effect of CRF Layer}. Every model which has a CRF layer over its LSTM output layer is superior to the one with a simple LSTM layer. Compared with LSTM model, LSTM-CRF achieves higher precisions and recalls in all subtasks by significantly reducing the invalid labeling sequences (e.g., \texttt{I-arg} appears right after \texttt{O}). During prediction, instead of tagging each token independently, LSTM-CRF takes into account the constraints between neighbor labels, and increases the cooccurrences of key arguments with regard to the same event type in some way.
 
 \vspace{1em}
-\noindent \textbf{Effect of Post Inference}. As shown in Table~\ref{tab:1}, post inference based on ILP considerably improve the overall system performance, especially in event classification. With the help of constraint \textbf{C4},  some dubious key arguments can be inferred through other key arguments from their contexts. Compared with LSTM-CRF, LSTM-CRF-ILP$_1$ produces a gain of 7.4 in event classification, 1.8 in event detection, and 4.6 in argument detection, with respect to the F1. We further investigate the effect of our heuristic method, LSTM-CRF-ILP$_{multi}$ which deals with the multi-event sentence issue. Compared with other models, LSTM-CRF-ILP$_{multi}$ selects several labeling sequences according to their objective value, and extract a number of events with comparable confidences from a sentence. As we can see from Table~\ref{tab:1}, this strategy may detect multi-type event mentions for a sentence, contributing to the increase of recalls, and F1 scores with a little drop of precisions. 
+\noindent \textbf{Effect of Post Inference}. As shown in Table~\ref{tab:1}, post inference based on ILP considerably improve the overall system performance, especially in event classification. With the help of constraint \textbf{C4},  some dubious key arguments can be inferred through other key arguments from their contexts. Compared with LSTM-CRF, LSTM-CRF-ILP$_1$ produces a gain of 7.4 in event classification, 1.8 in event detection, and 4.6 in argument detection, with respect to the F1. We further investigate the effect of our heuristic method, LSTM-CRF-ILP$_{multi}$ which deals with the multi-event sentence issue. Compared with other models, LSTM-CRF-ILP$_{multi}$ selects several labeling sequences according to their objective value, and extract a number of events with comparable confidences from a sentence. As we can see from Table~\ref{tab:1}, this strategy may detect multi-type event mentions for a sentence, contributing to the increase of recalls, and F1 scores with a little drop of precisions.
+
 \subsection{Manual Evaluations}
 We randomly sample 150 unlabeled sentences from test data set. Annotators are asked to annotate the events and arguments to each sentence following two steps. First, determine whether a given sentence is positive or negative, and assign event types to positive sentences. Next, label all related arguments and their roles according to the types of events in the positive sentences. Each sentence is independently annotated by two annotators, and the inter-annotator agreement is 87\% for event types and 79\% for arguments.
 
@@ -142,7 +143,7 @@ Table~\ref{tab:2} presents the average F1 score of manual evaluations. We can dr
 	\caption{Example outputs of LSTM-CRF-ILP$_{multi}$.\label{fig:1}}
 \end{figure}
 
-Moreover, manual evaluation helps us to gain a deep insight of our data and models. We further conduct automatic evaluation on the manual annotated dataset and list the top 5 event types whose F1 scores of LSTM-CRF-ILP$_{multi}$ differ greatly from automatic evaluation in Table~\ref{tab:4}. 
+Moreover, manual evaluation helps us to gain a deep insight of our data and models. We further conduct automatic evaluation on the manual annotated dataset and list the top 5 event types whose F1 scores of LSTM-CRF-ILP$_{multi}$ differ greatly from automatic evaluation in Table~\ref{tab:4}.
 
 Most of the performance differences are caused by the stage of data generation. Figure~\ref{fig:1} examples two types of errors in data generation. Some of the sentences automatic generated test set are noisy, in other words, they do not imply any event while still match all key properties of certain instances. Take S5 as an example, though the phrases \emph{the car} matches a film name, it does not indicate this film, and there is no explicit evidence expressing that an actor starring in a film. This is a bottleneck of our data generation strategy. During manual evaluation, we find 16 negative sentences which are mistakenly labeled due to this reason. Unfortunately, our model fails to rectify 10 of them.
 
@@ -153,16 +154,16 @@ Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances th
 \centering
 \begin{tabular}{|l|c|c|c|} \hline
 	Event type & P & R & F \\ \hline
-	olympics.medal\_honor 
-	 \footnote{The full name is olympics.olympic\_medal\_honor in Freebase.} 
+	olympics.medal\_honor
+	 \footnote{The full name is olympics.olympic\_medal\_honor in Freebase.}
 	& $\downarrow$ 25.0\% & $\downarrow$ 5.0\% & $\downarrow$ 13.8\% \\ \hline
 	film.performance & $\downarrow$ 21.4\% & $\uparrow$ 3.1\% & $\downarrow$10.3\% \\ \hline
 	business.acquisition & $\rightarrow$ & $\downarrow$ 7.1\% & $\downarrow$ 5.4\% \\ \hline
-	tv.appearance 
-	 \footnote{The full name is tv.regular\_tv\_appearance in Freebase.} 
+	tv.appearance
+	 \footnote{The full name is tv.regular\_tv\_appearance in Freebase.}
 	& $\downarrow$ 9.5\% & $\uparrow$ 3.0\% & $\downarrow$ 3.1\% \\ \hline
-	film.release 
-	 \footnote{The full name is film.film\_regional\_release\_date in Freebase.} 
+	film.release
+	 \footnote{The full name is film.film\_regional\_release\_date in Freebase.}
 	& $\downarrow$ 7.7\% & $\uparrow$ 5.6\% & $\downarrow$ 0.55\% \\ \hline
 \end{tabular}
 \caption{Top 5 event types whose performances on event classification differ most from automatic evaluation. The model we evaluated is LSTM-CRF-ILP$_{multi}$ \label{tab:4}}
@@ -172,7 +173,8 @@ Remarkably, our LSTM-CRF-ILP$_{multi}$ model can help find more CVT instances th
 
 \section{Conclusions and Future Work}
 In this paper, we propose a new event extraction paradigm without expert-designed event templates by leveraging structured knowledge bases to automatically acquire event schema and corresponding training data. We propose an LSTM-CRF model with ILP-based post inference to extract events without explicit trigger annotations. Experimental results on both manual and automatic evaluations show that it is possible to learn to extract KB-style events on automatically constructed training data.
-Furthermore, our model can extract information not covered by Freebase which indicates the possibility to extend this work to knowledge base population. 
+Furthermore, our model can extract information not covered by Freebase which indicates the possibility to extend this work to knowledge base population.
+
 % \section*{Acknowledgments}
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c

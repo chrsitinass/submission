@@ -1,15 +1,16 @@
 \begin{abstract}
-Existing event extraction systems are often supervised and rely on expert-annotated datasets, with limited event types.
-%such as ACE and ERE event extraction frameworks. 
-However, designing and constructing these 
-high-quality corpora, usually with limited size and coverage of event types,  is costly, which 
-makes learned extractors hard to generalize.  With the essence of distant supervision, 
-%Inspired by some Freebase schemas which share similar structures with ACE event templates, 
-we investigate the possibilities of automatic construction of training data for various event types 
-with the help of structured knowledge bases. 
-%the following problems in this paper: can we generate a feasible dataset for event extraction with Freebase automatically and is it possible to extract events on this dataset. 
-%We first propose four hypotheses based on our observation and produce our dataset accordingly. Then, 
-We further propose a novel neural network with ILP-based post inference committing to 
-handling two challenges in event extraction: multi-type events and multi-word arguments. 
+Existing event extraction systems are typically based supervised learning over expert-annotated datasets.
+%Due to the drastic efforts involved in annotation, these datasets often only provide  limited event types.
+%such as ACE and ERE event extraction frameworks.
+However, designing and constructing these
+high-quality corpora, even with limited size and coverage of event types,  is costly.
+This makes learned extractors hard to generalize.  With the essence of distant supervision,
+%Inspired by some Freebase schemas which share similar structures with ACE event templates,
+we investigate the possibilities of automatic construction of training data for various event types
+with the help of structured knowledge bases.
+%the following problems in this paper: can we generate a feasible dataset for event extraction with Freebase automatically and is it possible to extract events on this dataset.
+%We first propose four hypotheses based on our observation and produce our dataset accordingly. Then,
+We further propose a novel neural network with ILP-based post inference committing to
+handling two challenges in event extraction: multi-type events and multi-word arguments.
 Both automatic and manual evaluations demonstrate that it is possible to learn to extract various  events, according to existing knowledge bases, without human-annotated training data.
-\end{abstract}
+\end{abstract} 
