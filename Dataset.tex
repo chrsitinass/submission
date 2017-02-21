@@ -1,6 +1,7 @@
 \section{Dataset Preparation}
-We employ Freebase to automatically annotate text in Wikipedia. We regard a sentence as a positive one when it mentions an occurrence of event, or otherwise a negative sentence. For example, S1 and S2 are positive sentences and their arguments are in italics and underlined, while S3 and S4 are negative sentences. The event structures of S1 and S2 are illustrated in Figure~\ref{fig:3}.
-
+Here, we will employ the event-related entries in Freebase~\cite{bollacker2008freebase}  to automatically annotate \red{event descriptions} in Wikipedia's pages, with the essence of  \texttt{DS}. We regard a sentence as positive when it mentions the occurrence of an event, or otherwise negative. For example, S1 and S2 are positive examples with their arguments in italics and underlined (also shown in Figure~\ref{fig:3}), while S3 and S4 are negative. 
+%The event structures of S1 and S2 are illustrated in Figure~\ref{fig:3}.
+%
 \begin{quote}
 	\textbf{S1}: \underline{\emph{Remedy Corp}} was sold to \underline{\emph{BMC Software}} as the \underline{\emph{Service Management Business Unit}} in \underline{\emph{2004}}.
 \end{quote}
@@ -13,12 +14,17 @@ We employ Freebase to automatically annotate text in Wikipedia. We regard a sent
 \begin{quote}
 	\textbf{S4}: On April 29th, Elizabeth II and Prince Philip witnessed the marriage of Prince William.
 \end{quote}
-
+%
 \subsection{Freebase}
-Freebase\cite{bollacker2008freebase} is a collaborative structured knowledge base which is divided into three layers: \emph{domain}, \emph{type} and \emph{instance}. \emph{Instances} are entries in Freebase, and are related to real-world entities like people and places. \emph{Types} are different perspectives of \emph{instances}. \textbf{\emph{Compound Value Type}} (CVT) is a special type in Freebase to represent complex structured data where each instance consists of multiple \textbf{\emph{properties}}. Some of the CVT schemas are highly alike to event structures where CVT properties can be treat as event arguments. For example, in Figure~\ref{fig:3}, \emph{business.acquisition} is a CVT whose properties are \emph{company\_acquired}, \emph{acquiring\_company}, \emph{date} and \emph{divisions\_formed}. These properties can also be used to represent participants and attributes in events extracted from S1 and S2.
+Freebase is a structured knowledge base, which can be divided into three layers: \emph{domain}, \emph{type} and \emph{instance}. \emph{Instances} are entries in Freebase, and related to real-world entities\red{ and their relationship??}. \emph{Types} are different perspectives of \emph{instances}. \textbf{\emph{Compound Value Type}} (CVT) is a special type in Freebase to represent complex structured data where instances \red{ are described with} multiple \textbf{\emph{properties}}, usually organized in a table. Some of the CVT schemas indeed imply certain events, e.g., \red{\emph{divoice??sports related???} and \emph{business.acquisition}} , and  closely resemble to event structures, where CVT properties can be treated as event arguments. As shown  in Figure~\ref{fig:3},
+% \emph{business.acquisition} is a CVT whose properties are \emph{company\_acquired}, \emph{acquiring\_company}, \emph{date} and \emph{divisions\_formed}. 
+the properties of CVT  \emph{business.acquisition}  actually can be used to \red{lable/indicate}  %can be used to represent 
+the participants and attributes of the events mentioned in S1 and S2.
 
-We use the Freebase version of Berant et al. \shortcite{berant2013semantic}, containing 1010 CVTs. After filtering out CVTs that describe the structures of the Freebase or are irrelevant to event extraction (e.g., \emph{food.recipe\_ingredient}), we select 24 CVTs with around 280 million instances.
-
+We use the Freebase copy of 2013-06,  %version of Berant et al. \shortcite{berant2013semantic}, 
+containing 1010 CVTs. After filtering out those %CVTs that 
+describing the Freebase structures  or irrelevant to events (e.g., \emph{food.recipe\_ingredient}), we obtain 24 CVTs with around 280 million instances.    
+%
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.48\textwidth]{temp}
@@ -26,19 +32,27 @@ We use the Freebase version of Berant et al. \shortcite{berant2013semantic}, con
 \end{figure}
 
 \subsection{Data Generation\label{datagen}}
+Now we will describe how to automatically collect training data with quality event annotations, by pushing forward the \texttt{DS} framework.
 \subsubsection{H1: Positive sentences should contain all properties}
-This hypothesis indicates that if a sentence has all properties of a CVT, it is more likely to be a positive sentence. We regard the CVT as event type and extract words and phrases that match the properties of a CVT instance as involved arguments. For example, S1 contains all the properties of instance $m.07bh4j7$ whose type is \emph{business.acquisition}, thus we consider S1 as a positive sentence which implies an event about \emph{business.acquisition}, and \emph{BMC Software}, \emph{Remedy Corp}, \emph{Service Management Business Unit} and \emph{2004} should be labeled as the arguments that play the role of \emph{acquiring\_company}, \emph{company\_acquired}, \emph{divisions\_formed}, \emph{date}, respectively.
+Our first hypothesis is that \textit{if a sentence contains all properties of an entry in a CVT, this sentence will be 
+considered as a positive instance to indicate an event of such type characterized by this CVT}.  
+We will then label the sentence as a mention of this CVT event, and the words or phrases that 
+match this entry's properties as the involved arguments, with the roles specified by their 
+corresponding property names. 
+For example, S1 contains all the properties of instance $m.07bh4j7$ with a CVT type \emph{business.acquisition}, 
+we thus consider S1 as a positive instance implying an event about \emph{business.acquisition}, and \emph{BMC Software}, \emph{Remedy Corp}, \emph{Service Management Business Unit} and \emph{2004} will be labeled as the arguments that play the role of \emph{acquiring\_company}, \emph{company\_acquired}, \emph{divisions\_formed}, and \emph{date} in this event, respectively.
 
-However, in practice, we realize that \emph{H1} is too strict that excludes a great many positive sentences like S2. 
+%However, in practice, we realize that \emph{H1} is too strict that excludes a great many positive sentences like S2. 
 
 \subsubsection{H2: Positive sentences should contain all key properties}
-This hypothesis is an extension of \emph{H1}, which relaxes ``all properties'' constraint to ``key properties''. We define the CVT property that plays an important part in its CVT structure and helps to distinguish with other CVT as \textbf{key property}. And \textbf{key argument} is the word/phrase that matches a key property of a CVT instance. For example, \emph{company\_acquired} and \emph{acquiring\_company} are the key properties of CVT \emph{business.acquisition}, and with this relaxation, positive sentences like S2 need not contain all properties, but only key properties instead. Table~\ref{tab:5} lists key properties of four CVTs.
+In practice, we find that \emph{H1} is too strict to include many positive instances like S2. 
+We thus relax \emph{H1} by replacing \textbf{all properties} with \textbf{\red{all??????} key properties}. We define the CVT property that plays an important part in its CVT structure and helps to distinguish with other CVTs as a \textbf{key property}. A \textbf{key argument} is the word/phrase that matches a key property of a CVT instance. For example, \emph{company\_acquired} and \emph{acquiring\_company} are the key properties of CVT \emph{business.acquisition}, therefore,  S2 should be a positive instance for a \emph{business.acquisition} event, since it contains all key properties. Table~\ref{tab:5} lists the key properties of four CVTs.
 
-The importance of a property $prop$ (e.g., \emph{date}) to its CVT $cvt$ (e.g., \emph{business.acquisition}) can be defined as follows:
+The importance of a property $prop$ (e.g., \emph{date}) to its CVT $cvt$ (e.g., \emph{business.acquisition}) can be defined as:
 \begin{equation}
 	degree_{cvt, prop} = log \frac{count(cvt, prop)}{count(cvt) \times count(prop)} 
 \end{equation}
-where $count(cvt)$ is the number of all $cvt$ instances, $count(prop)$ is the number of $prop$ among all CVTs, and $count(cvt, prop)$ is the number of $cvt$ instances that contain the property $prop$.
+where $count(cvt)$ is the number of all instances of type $cvt$, $count(prop)$ is the number of times $prop$ appearing in all CVTs, and $count(cvt, prop)$ is the number of $cvt$ instances that contain the property $prop$.
 
 \begin{table}
 \centering
@@ -53,8 +67,14 @@ business.employment\_tenure & company, title, person, from \\ \hline
 \caption{Examples of key properties of four CVTs.\label{tab:5}}
 \end{table}
 
-\subsubsection{H3: Key properties should include time property}
-We discover that for many CVTs, their key properties do not take into account time property. However, ignoring time property will produce a large number of negative sentences like S3. It does not express an explicit event about \emph{business.accquisition} while contain all key properties of an instance, resulting in mistaking \emph{Microsoft} for \emph{acquiring\_company}, and \emph{aQuantive} for \emph{company\_acquired}. By adding \emph{date} to the set of key properties, S3 will be filtered. Therefore, we choose the time property which achieves the highest importance value as a supplementary key property. 
+\subsubsection{H3: Key properties should include time-related property}
+%We discover that for many CVTs, their key properties do not take into account time property. 
+Although time-related arguments are often missing in the currently imperfect KBs, time-related properties are indeed
+crucial to indicate an actual event mention, e.g., S3, containing  \emph{Microsoft} as \emph{acquiring\_company} and \emph{aQuantive} as \emph{company\_acquired} but without time-related arguments, should not be considered as a negative example for
+event \emph{business.accquisition}.
+% while contain all key properties of an instance, resulting in mistaking \emph{Microsoft} for \emph{acquiring\_company}, and \emph{aQuantive} for \emph{company\_acquired}. 
+%By adding \emph{date} to the set of key properties, S3 will be filtered. 
+We thus include the time-related properties with the highest importance scores  as supplementary key properties. 
 
 \subsubsection{H4: Positive sentences should contain key properties with close syntactic distance}
 We introduce another factor, syntactic distance, to annotate positive sentences. Intuitively, two arguments participant in the same event are likely to have close syntactic distance. This factor is effective to eliminate negative sentences, such as S4. The syntactic distance can be measured by the distance of two words in dependency parsing tree. We set the maximum distance between two key arguments as 2, denoting that, for a candidate sentence, if a pair of key arguments violates this constraint, it is supposed to be negative. Given the dependency parsing tree in Figure~\ref{fig:2}, S4 is negative because the distance between \emph{Prince Philip} and \emph{marriage} is 3.
