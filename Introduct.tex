@@ -1,23 +1,35 @@
 \section{Introduction}
-Automatically extracting events from natural text remains a challenging task in information extraction. Among diverse types of event extraction systems, the extraction task proposed by Automatic Content Extraction (ACE) \cite{doddington2004automatic} is the most popular framework, which defines two main terminologies: \textbf{trigger} and \textbf{argument}. The former is the word that most clearly expresses the occurrence of an event. The latter is a phrase that serves as a participant or attribute with a specific role in an event.
+Automatically extracting events from natural text remains a challenging task in information extraction. Among diverse
+types of event extraction systems, the extraction task proposed by Automatic Content Extraction (ACE)
+\cite{doddington2004automatic} is the most popular framework, which defines two main terminologies: \textbf{trigger}
+and \textbf{argument}. The former is the word that most clearly expresses the occurrence of an event. The latter is a
+phrase that serves as a participant or attribute with a specific role in an event.
 
-However, constructing training data for ACE task is expensive. First, linguists are required to summarize a large amount of text to elaborately design templates about potential arguments for each event type. Second, rules should be explicitly stated to guide annotators. In spite of detailed guidelines, there is still disagreement among human annotators about what should (not) be regarded as triggers/arguments. 
-For example, can a prepositional phrase or a portion of a word trigger an event, e.g., \textit{in prison} triggers an \emph{arrest} event, 
+Constructing effective training data for the ACE task is expensive. This typically follows two steps. First, linguists
+are required to summarize a large amount of text to elaborately design templates about potential arguments for each
+event type. Second, rules should be explicitly stated to guide annotators. Even with detailed guidelines, there is
+often disagreement among human annotators about what should (not) be regarded as triggers/arguments. For example, can a
+prepositional phrase or a portion of a word trigger an event, e.g., \textit{in prison} triggers an \emph{arrest} event,
 or, \textit{ex} in \textit{ex-husband} triggers a \emph{divorce} event?
-Besides, ACE event extraction systems remain two major limitations:   single-token trigger labeling, and one type for one event.
+Furthermore, current ACE event extraction systems have two major limitations, i.e., they can only have single-token trigger labeling and a one to one mapping from a type to an event. 
+These limitations restrict the wide adoption of ACE event extraction systems at scale. 
 
-%The aforementioned drawbacks of ACE event extraction systems motivate us to 
-It would be interesting to see (1) can we automatically build a dataset for event extraction without experts involved? 
-and (2) can we have an event extractor that handles more realistic scenarios, e.g.,  when trigger annotations are unavailable, or events with more than one type.
+
+%The aforementioned drawbacks of ACE event extraction systems motivate us to
+In this paper, we address the problems of automatic dataset construction and how to build an event extractor to handle situations where 
+trigger annotations are missing or one event is associated with more than one type. 
+
+%It would be interesting to see (1) can we automatically build a dataset for event extraction without experts involved?
+%and (2) can we have an event extractor that handles more realistic scenarios, e.g.,  when trigger annotations are unavailable, or events with more than one type.
 
 First, we observe that structured knowledge bases (KB) often organize
-%we draw the inspiration from our observations on knowledge base (KB). A knowledge base 
+%we draw the inspiration from our observations on knowledge base (KB). A knowledge base
 complex structured information in tables, which share similar structures with ACE event definitions. A particular entry of such tables usually implies the occurrence of certain events.
-%  and some of which shares a highly similar structure with event templates defined in ACE. Thus, any sentence that contains some participants and attributes in a particular KB entry is likely to imply an event in some way. 
+%  and some of which shares a highly similar structure with event templates defined in ACE. Thus, any sentence that contains some participants and attributes in a particular KB entry is likely to imply an event in some way.
 On the other hand, recent studies \cite{mintz2009distant,zeng2015distant} have demonstrated the effectiveness of KB as distant supervision for binary relation extraction.
 However, there are two major challenges when leveraging KB to event extraction: first, event structures are more complex than binary relations. They can be represented as $\langle event\_type, argument_1, \ldots, argument_n\rangle$, which are n-ary relations with various numbers of arguments. Second, there is no explicit trigger information in any existing knowledge base. Therefore, to explore the distant supervision (\texttt{DS}) assumption in event extraction, we investigate different hypotheses for better data quality and quantity. Among them, the vital one is that, for a particular event type, there is a group of \textbf{key arguments} which together can imply an event instead of explicit triggers.
 We utilize Freebase as our knowledge base and Wikipedia articles as text for data generation. According to Mintz et al. \shortcite{mintz2009distant}, because a major source of Freebase is the tabular data from Wikipedia, making it a natural fit with Freebase. Figure~\ref{fig:3} illustrates examples of sentences annotated by our algorithm.
 
-Second, unlike previous studies focus on tasks defined by ACE evaluation framework \cite{ahn2006stages,li2013joint,chen2015event,nguyen2016joint}, we propose a novel event extraction paradigm with key arguments to characterize an event type. We consider event extraction as two sequence labeling subtasks, namely event detection and argument detection. Inspired by neural network models in sequence labeling tasks \cite{huang2015bidirectional,lample2016neural}, we utilize LSTM-CRF models to label key arguments and non-key arguments in the each sentence separately. However, event structures are not simple sequences and there are strong dependencies among key arguments. We therefore reformulate the hypotheses as constraints, and apply linear integer programming to output multiple optimal label sequences to capture multi-type events. 
+Second, unlike previous studies focus on tasks defined by ACE evaluation framework \cite{ahn2006stages,li2013joint,chen2015event,nguyen2016joint}, we propose a novel event extraction paradigm with key arguments to characterize an event type. We consider event extraction as two sequence labeling subtasks, namely event detection and argument detection. Inspired by neural network models in sequence labeling tasks \cite{huang2015bidirectional,lample2016neural}, we utilize LSTM-CRF models to label key arguments and non-key arguments in the each sentence separately. However, event structures are not simple sequences and there are strong dependencies among key arguments. We therefore reformulate the hypotheses as constraints, and apply linear integer programming to output multiple optimal label sequences to capture multi-type events.
 
 In this paper, we exploit existing structured knowledge bases, e.g., Freebase, as distant supervision to automatically annotate event structures from plain text without human annotations. We further propose a novel event extraction paradigm that harnesses key arguments to imply certain event types without explicit trigger annotations. We present an LSTM-CRF model with post inference to extract both Freebase-style events as well as multi-type event mentions on the generated dataset, which is demonstrated effective by both manual and automatic evaluations.
